@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Art of Sight Reading — Fingers On Keys</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0D0F14;
+  --ink2:   #13161E;
+  --ink3:   #1C2030;
+  --gold:   #D4A843;
+  --gold2:  #F0C866;
+  --cream:  #F2EDE4;
+  --muted:  #8A8FA8;
+  --teal:   #2DD4BF;
+  --teal2:  #99F6E4;
+  --rose:   #FB7185;
+  --amber:  #FBBF24;
+  --line:   rgba(212,168,67,0.18);
+  --card:   #171B28;
+  --card2:  #1E2335;
+  --r: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Staff-line background texture ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 28px,
+    rgba(212,168,67,0.04) 28px,
+    rgba(212,168,67,0.04) 29px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 92vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 60px 24px 80px;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(212,168,67,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 6px 20px; border-radius: 50px;
+  margin-bottom: 36px;
+  animation: fadeDown 0.8s ease both;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 800; line-height: 1.05;
+  color: var(--cream);
+  max-width: 820px;
+  animation: fadeDown 0.8s 0.15s ease both;
+}
+.hero h1 em {
+  font-style: italic; color: var(--gold);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 300; color: var(--muted);
+  max-width: 520px; line-height: 1.8;
+  margin: 24px auto 0;
+  animation: fadeDown 0.8s 0.3s ease both;
+}
+.hero-scroll {
+  margin-top: 56px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--muted); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: fadeDown 0.8s 0.5s ease both;
+}
+.scroll-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* Floating staff lines in hero */
+.hero-staff {
+  position: absolute;
+  width: 100%; left: 0;
+  pointer-events: none; opacity: 0.06;
+}
+.hero-staff line { stroke: var(--gold); stroke-width: 1; }
+
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── Nav dots (progress) ── */
+.nav-dots {
+  position: fixed; right: 24px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--line);
+  border: 1px solid var(--muted);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.4); }
+
+/* ══════════════════════════════════
+   SECTIONS
+══════════════════════════════════ */
+main { position: relative; z-index: 1; }
+.section {
+  max-width: 860px; margin: 0 auto;
+  padding: 80px 24px;
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--gold); text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800; line-height: 1.2;
+  color: var(--cream); margin-bottom: 20px;
+}
+h2 span { color: var(--gold); }
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--cream); margin-bottom: 10px;
+}
+p {
+  font-size: 1.05rem; line-height: 1.85;
+  color: rgba(242,237,228,0.75);
+  margin-bottom: 16px;
+}
+p:last-child { margin-bottom: 0; }
+
+/* Section divider */
+.divider {
+  width: 100%; height: 1px;
+  background: var(--line);
+  margin: 0 auto;
+}
+
+/* ── Pull quote ── */
+.pull-quote {
+  border-left: 3px solid var(--gold);
+  padding: 16px 24px;
+  background: rgba(212,168,67,0.05);
+  border-radius: 0 var(--r) var(--r) 0;
+  margin: 28px 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-style: italic;
+  color: var(--gold2); margin: 0;
+}
+
+/* ── Info cards ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px; margin: 28px 0;
+}
+.info-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 22px 20px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.info-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+.info-card .icon {
+  font-size: 1.8rem; margin-bottom: 12px; display: block;
+}
+.info-card h3 { font-size: 1rem; margin-bottom: 6px; }
+.info-card p { font-size: 0.92rem; margin: 0; }
+
+/* ── Two-col layout ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px; align-items: start;
+  margin: 28px 0;
+}
+@media(max-width:640px){ .two-col { grid-template-columns: 1fr; } }
+
+/* ══════════════════════════════════
+   INTERACTIVE STAFF
+══════════════════════════════════ */
+.staff-container {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px 24px 20px;
+  margin: 28px 0;
+}
+.staff-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+#staffSvg { width: 100%; display: block; }
+.staff-note-info {
+  text-align: center; margin-top: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: var(--teal2);
+  min-height: 28px;
+  transition: all 0.3s;
+}
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px; margin-top: 16px;
+}
+.note-chip {
+  background: var(--card2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+}
+.note-chip:hover { border-color: var(--teal); color: var(--teal2); }
+.note-chip .nname { font-weight: 700; font-size: 1rem; color: var(--cream); }
+.note-chip .nhint { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+/* ══════════════════════════════════
+   RHYTHM TRAINER
+══════════════════════════════════ */
+.rhythm-trainer {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px 24px;
+  margin: 28px 0;
+}
+.beat-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  justify-content: center; margin: 20px 0;
+}
+.beat-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--card2);
+  border: 2px solid var(--line);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.beat-btn:hover { border-color: var(--teal); color: var(--teal); }
+.beat-btn.active { background: var(--teal); border-color: var(--teal); color: var(--ink); }
+.beat-btn.accent { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.beat-btn.playing { transform: scale(1.2); box-shadow: 0 0 18px rgba(45,212,191,0.5); }
+.beat-btn.playing.accent { box-shadow: 0 0 18px rgba(212,168,67,0.6); }
+
+.rhythm-controls {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  margin-top: 16px;
+}
+.rhy-btn {
+  padding: 10px 22px; border-radius: 50px;
+  border: 1px solid var(--line);
+  background: transparent; color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.rhy-btn:hover { border-color: var(--gold); color: var(--gold); }
+.rhy-btn.primary {
+  background: var(--gold); border-color: var(--gold);
+  color: var(--ink);
+}
+.rhy-btn.primary:hover { background: var(--gold2); }
+.tempo-display {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem; color: var(--muted);
+  min-width: 70px; text-align: center;
+}
+.time-sig-select {
+  display: flex; gap: 8px;
+}
+.ts-btn {
+  padding: 7px 14px; border-radius: 6px;
+  border: 1px solid var(--line);
+  background: transparent; color: var(--muted);
+  font-family: 'DM Mono', monospace; font-size: 0.8rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.ts-btn.active { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 700; }
+
+/* ══════════════════════════════════
+   TIPS SECTION
+══════════════════════════════════ */
+.tips-list { margin: 28px 0; }
+.tip-item {
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left 0.3s;
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-item:hover { padding-left: 8px; }
+.tip-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 800; font-style: italic;
+  color: rgba(212,168,67,0.25);
+  line-height: 1; flex-shrink: 0; width: 36px;
+  text-align: right;
+}
+.tip-content h3 { font-size: 1.05rem; color: var(--cream); margin-bottom: 6px; }
+.tip-content p { font-size: 0.95rem; margin: 0; }
+
+/* ══════════════════════════════════
+   MISTAKES ACCORDION
+══════════════════════════════════ */
+.accordion { margin: 28px 0; }
+.acc-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.acc-item.open { border-color: var(--rose); }
+.acc-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px; cursor: pointer;
+  user-select: none;
+}
+.acc-header-left { display: flex; align-items: center; gap: 12px; }
+.acc-badge {
+  background: rgba(251,113,133,0.15);
+  color: var(--rose); border-radius: 6px;
+  padding: 3px 10px; font-size: 0.75rem;
+  font-family: 'DM Mono', monospace; letter-spacing: 1px;
+  white-space: nowrap;
+}
+.acc-title { font-weight: 600; font-size: 1rem; color: var(--cream); }
+.acc-arrow {
+  color: var(--muted); font-size: 0.8rem;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.acc-item.open .acc-arrow { transform: rotate(180deg); color: var(--rose); }
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+}
+.acc-item.open .acc-body { max-height: 300px; }
+.acc-inner {
+  padding: 0 20px 18px;
+  border-top: 1px solid var(--line);
+}
+.acc-inner p { font-size: 0.95rem; margin-top: 14px; }
+.fix-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(45,212,191,0.1);
+  color: var(--teal2); border-radius: 6px;
+  padding: 4px 12px; font-size: 0.8rem; font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ══════════════════════════════════
+   PRACTICE EXERCISES — FLASHCARDS
+══════════════════════════════════ */
+.flashcard-section { margin: 28px 0; }
+.flashcard-wrap {
+  perspective: 1000px;
+  height: 220px; margin-bottom: 16px;
+  cursor: pointer;
+}
+.flashcard {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute; inset: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 28px;
+  text-align: center;
+}
+.card-back { transform: rotateY(180deg); border-color: rgba(45,212,191,0.3); }
+.card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.card-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--cream); line-height: 1.4;
+}
+.card-a {
+  font-size: 1rem; color: var(--teal2);
+  line-height: 1.7;
+}
+.card-flip-hint {
+  font-size: 0.8rem; color: var(--muted);
+  margin-top: 16px; font-style: italic;
+}
+.flashcard-nav {
+  display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+}
+.fc-btn {
+  padding: 10px 24px; border-radius: 50px;
+  border: 1px solid var(--line);
+  background: transparent; color: var(--cream);
+  font-family: 'DM Sans', sans-serif; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.fc-btn:hover { border-color: var(--gold); color: var(--gold); }
+.fc-counter {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem; color: var(--muted);
+}
+
+/* ══════════════════════════════════
+   PROGRESS TRACKER
+══════════════════════════════════ */
+.progress-tracker {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px 24px;
+  margin: 28px 0;
+}
+.progress-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.skill-row {
+  margin-bottom: 18px;
+}
+.skill-meta {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 7px;
+}
+.skill-name { font-size: 0.9rem; font-weight: 600; color: var(--cream); }
+.skill-level { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); }
+.skill-bar-bg {
+  background: var(--ink3); border-radius: 50px; height: 6px;
+  overflow: hidden;
+}
+.skill-bar {
+  height: 100%; border-radius: 50px;
+  background: linear-gradient(90deg, var(--gold), var(--teal));
+  width: 0;
+  transition: width 1.2s ease;
+}
+.self-rate-grid {
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 8px;
+  margin-top: 20px;
+}
+.rate-btn {
+  padding: 10px 0;
+  background: var(--card2); border: 1px solid var(--line);
+  border-radius: 8px; text-align: center;
+  cursor: pointer; transition: all 0.2s;
+  font-size: 0.85rem; color: var(--muted);
+}
+.rate-btn:hover { border-color: var(--gold); color: var(--gold); }
+.rate-btn.selected { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 700; }
+.rate-label { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 4px; }
+
+/* ══════════════════════════════════
+   5-MIN ROUTINE
+══════════════════════════════════ */
+.routine-steps {
+  display: flex; flex-direction: column; gap: 0;
+  margin: 28px 0; position: relative;
+}
+.routine-steps::before {
+  content: '';
+  position: absolute; left: 19px; top: 10px; bottom: 10px;
+  width: 2px; background: var(--line);
+}
+.routine-step {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 16px 0;
+  position: relative;
+}
+.step-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--card2); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 0.8rem;
+  color: var(--gold); flex-shrink: 0;
+  position: relative; z-index: 1;
+}
+.step-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem; color: var(--teal);
+  margin-bottom: 4px;
+}
+.step-body h3 { font-size: 1rem; margin-bottom: 4px; }
+.step-body p { font-size: 0.9rem; margin: 0; }
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--line);
+  padding: 48px 24px;
+  text-align: center;
+}
+footer .brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--gold); margin-bottom: 8px;
+}
+footer p { font-size: 0.85rem; color: var(--muted); }
+
+/* Scroll-reveal animation */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* Responsive */
+@media(max-width:600px){
+  .nav-dots { display: none; }
+  .note-grid { grid-template-columns: repeat(4,1fr); }
+  .self-rate-grid { grid-template-columns: repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots">
+  <div class="nav-dot active" data-target="s0" title="Intro"></div>
+  <div class="nav-dot" data-target="s1" title="What is it?"></div>
+  <div class="nav-dot" data-target="s2" title="The Staff"></div>
+  <div class="nav-dot" data-target="s3" title="Rhythm"></div>
+  <div class="nav-dot" data-target="s4" title="Tips"></div>
+  <div class="nav-dot" data-target="s5" title="Mistakes"></div>
+  <div class="nav-dot" data-target="s6" title="Exercises"></div>
+  <div class="nav-dot" data-target="s7" title="Routine"></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="s0">
+  <svg class="hero-staff" viewBox="0 0 1440 400" preserveAspectRatio="none">
+    <line x1="0" y1="80"  x2="1440" y2="80"/>
+    <line x1="0" y1="116" x2="1440" y2="116"/>
+    <line x1="0" y1="152" x2="1440" y2="152"/>
+    <line x1="0" y1="188" x2="1440" y2="188"/>
+    <line x1="0" y1="224" x2="1440" y2="224"/>
+    <line x1="0" y1="290" x2="1440" y2="290"/>
+    <line x1="0" y1="326" x2="1440" y2="326"/>
+    <line x1="0" y1="362" x2="1440" y2="362"/>
+  </svg>
+  <div class="hero-brand">🎹 Fingers On Keys — Music Blog</div>
+  <h1>The <em>Art</em> of<br>Sight Reading</h1>
+  <p class="hero-sub">The single skill that separates good musicians from great ones — and how you can master it, step by step.</p>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<main>
+
+<!-- ══ SECTION 1 — WHAT IS SIGHT READING ══ -->
+<div class="divider"></div>
+<section class="section reveal" id="s1">
+  <div class="section-label">Chapter 01</div>
+  <h2>What <span>is</span> Sight Reading?</h2>
+  <p>Sight reading is the ability to look at a piece of music you have <strong>never seen before</strong> and play it — accurately, in rhythm, and with expression — <em>on the very first attempt</em>. No practising beforehand. No listening to it first. Just you, the sheet music, and your instrument.</p>
+
+  <div class="pull-quote">
+    <p>"Sight reading is to music what literacy is to language — it doesn't just help you read books faster. It transforms how you think."</p>
+  </div>
+
+  <p>Think about reading a book. When you were young, you had to sound out every letter. Now, you absorb whole sentences instantly. Sight reading works the same way — with practice, your brain begins to recognise patterns, rhythms, and phrases automatically.</p>
+
+  <div class="cards-grid">
+    <div class="info-card">
+      <span class="icon">🧠</span>
+      <h3>It's a Skill, Not a Gift</h3>
+      <p>Nobody is born a sight reader. Like any skill, it improves consistently with the right kind of daily practice.</p>
+    </div>
+    <div class="info-card">
+      <span class="icon">🎵</span>
+      <h3>It Unlocks Repertoire</h3>
+      <p>Strong sight readers can learn new pieces 3–5× faster and explore 10× more music over a lifetime.</p>
+    </div>
+    <div class="info-card">
+      <span class="icon">🤝</span>
+      <h3>Essential for Exams</h3>
+      <p>All ABRSM and Trinity grade exams include a sight reading component — often worth 10–15% of total marks.</p>
+    </div>
+    <div class="info-card">
+      <span class="icon">🎭</span>
+      <h3>The Social Superpower</h3>
+      <p>Sight readers can join ensembles, accompany singers, and collaborate — all on the spot. It's a genuine musical superpower.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 2 — THE STAFF ══ -->
+<section class="section reveal" id="s2">
+  <div class="section-label">Chapter 02</div>
+  <h2>Reading the <span>Staff</span> & Note Positions</h2>
+  <p>Before you can sight read, you need to know <em>where the notes live</em>. The musical staff is a grid of 5 lines and 4 spaces. Every line and space has a name — and great sight readers know them instantly, without counting up from the bottom.</p>
+
+  <div class="staff-container">
+    <div class="staff-title">Interactive Staff — Click a note to learn it</div>
+    <svg id="staffSvg" viewBox="0 0 700 165" xmlns="http://www.w3.org/2000/svg">
+      <!-- Staff lines -->
+      <line x1="55" y1="30"  x2="680" y2="30"  stroke="rgba(212,168,67,0.4)" stroke-width="1.2"/>
+      <line x1="55" y1="48"  x2="680" y2="48"  stroke="rgba(212,168,67,0.4)" stroke-width="1.2"/>
+      <line x1="55" y1="66"  x2="680" y2="66"  stroke="rgba(212,168,67,0.4)" stroke-width="1.2"/>
+      <line x1="55" y1="84"  x2="680" y2="84"  stroke="rgba(212,168,67,0.4)" stroke-width="1.2"/>
+      <line x1="55" y1="102" x2="680" y2="102" stroke="rgba(212,168,67,0.4)" stroke-width="1.2"/>
+      <!-- Treble clef -->
+      <text x="8" y="98" font-size="72" font-family="serif" fill="rgba(212,168,67,0.6)">𝄞</text>
+      <!-- Clickable notes: E4 F4 G4 A4 B4 C5 D5 E5 F5 G5 -->
+      <!-- Note circles at positions -->
+    </svg>
+    <div class="staff-note-info" id="staffInfo">👆 Click any note below — hear it play & learn where it sits!</div>
+
+    <div class="note-grid" id="noteGrid"></div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Lines — <em>"Every Good Boy Deserves Fudge"</em></h3>
+      <p style="margin-bottom:14px">The 5 lines of the treble clef, from bottom to top, spell out:</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(212,168,67,0.2); color:var(--gold); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">E</span>
+          <span style="color:var(--muted); font-size:0.9rem">Every — <strong style="color:var(--cream)">Line 1 (bottom)</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(212,168,67,0.2); color:var(--gold); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">G</span>
+          <span style="color:var(--muted); font-size:0.9rem">Good — <strong style="color:var(--cream)">Line 2</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(212,168,67,0.2); color:var(--gold); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">B</span>
+          <span style="color:var(--muted); font-size:0.9rem">Boy — <strong style="color:var(--cream)">Line 3 (middle)</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(212,168,67,0.2); color:var(--gold); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">D</span>
+          <span style="color:var(--muted); font-size:0.9rem">Deserves — <strong style="color:var(--cream)">Line 4</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(212,168,67,0.2); color:var(--gold); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">F</span>
+          <span style="color:var(--muted); font-size:0.9rem">Fudge — <strong style="color:var(--cream)">Line 5 (top)</strong></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Spaces — <em>"FACE"</em></h3>
+      <p style="margin-bottom:14px">The 4 spaces, from bottom to top, simply spell a word:</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(45,212,191,0.15); color:var(--teal2); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">F</span>
+          <span style="color:var(--muted); font-size:0.9rem"><strong style="color:var(--cream)">Space 1</strong> (below middle line)</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(45,212,191,0.15); color:var(--teal2); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">A</span>
+          <span style="color:var(--muted); font-size:0.9rem"><strong style="color:var(--cream)">Space 2</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(45,212,191,0.15); color:var(--teal2); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">C</span>
+          <span style="color:var(--muted); font-size:0.9rem"><strong style="color:var(--cream)">Space 3</strong></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span style="background:rgba(45,212,191,0.15); color:var(--teal2); font-family:'DM Mono',monospace; padding:4px 10px; border-radius:6px; font-size:0.85rem; min-width:30px; text-align:center">E</span>
+          <span style="color:var(--muted); font-size:0.9rem"><strong style="color:var(--cream)">Space 4</strong> (above middle line)</span>
+        </div>
+      </div>
+      <div class="pull-quote" style="margin-top:20px; margin-bottom:0">
+        <p>Pro tip: Stop counting from the bottom. Memorise landmark notes — Middle C, G on line 2, and top-line F — then navigate from there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 3 — RHYTHM ══ -->
+<section class="section reveal" id="s3">
+  <div class="section-label">Chapter 03</div>
+  <h2>Rhythm &amp; <span>Counting</span> While Reading</h2>
+  <p>Here's the truth most students don't hear early enough: <strong>rhythm is harder than notes</strong>. You can guess a wrong note and nobody notices. But stumble on the rhythm, and the entire piece falls apart. Rhythm is the skeleton of music — everything else hangs on it.</p>
+
+  <div class="two-col" style="margin-bottom:0">
+    <div>
+      <h3>The Golden Rule</h3>
+      <p>Count out loud — always, and especially when you don't think you need to. Counting out loud externalises your internal pulse and keeps everything locked in time.</p>
+      <div style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px; margin-top:16px;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.85rem; color:var(--gold); margin-bottom:10px; letter-spacing:1px;">COUNTING SYSTEM</div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <div style="display:flex; gap:8px; align-items:center;"><span style="background:var(--gold); color:var(--ink); border-radius:4px; padding:2px 8px; font-weight:700; font-family:'DM Mono',monospace; font-size:0.8rem">4/4</span><span style="color:var(--muted)">Count: <strong style="color:var(--cream)">1 - 2 - 3 - 4</strong></span></div>
+          <div style="display:flex; gap:8px; align-items:center;"><span style="background:var(--teal); color:var(--ink); border-radius:4px; padding:2px 8px; font-weight:700; font-family:'DM Mono',monospace; font-size:0.8rem">3/4</span><span style="color:var(--muted)">Count: <strong style="color:var(--cream)">1 - 2 - 3</strong></span></div>
+          <div style="display:flex; gap:8px; align-items:center;"><span style="background:var(--rose); color:white; border-radius:4px; padding:2px 8px; font-weight:700; font-family:'DM Mono',monospace; font-size:0.8rem">6/8</span><span style="color:var(--muted)">Count: <strong style="color:var(--cream)">1 - 2 - 3 - 4 - 5 - 6</strong></span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Note Value Quick Reference</h3>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.4rem">𝅝</span>
+          <div style="text-align:right"><div style="font-size:0.9rem; color:var(--cream); font-weight:600">Semibreve</div><div style="font-size:0.8rem; color:var(--muted)">4 beats</div></div>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.4rem">𝅗𝅥</span>
+          <div style="text-align:right"><div style="font-size:0.9rem; color:var(--cream); font-weight:600">Minim</div><div style="font-size:0.8rem; color:var(--muted)">2 beats</div></div>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.4rem">♩</span>
+          <div style="text-align:right"><div style="font-size:0.9rem; color:var(--cream); font-weight:600">Crotchet</div><div style="font-size:0.8rem; color:var(--muted)">1 beat</div></div>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.4rem">♪</span>
+          <div style="text-align:right"><div style="font-size:0.9rem; color:var(--cream); font-weight:600">Quaver</div><div style="font-size:0.8rem; color:var(--muted)">½ beat</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rhythm Trainer -->
+  <div class="rhythm-trainer" style="margin-top:28px">
+    <div class="staff-title">🥁 Interactive Beat Trainer — Feel the Pulse</div>
+    <p style="font-size:0.9rem; margin-bottom:16px">Choose a time signature, hit Play, and tap along with the beat. Beat 1 lights up in gold and plays a <strong>louder accent click</strong> — other beats play a softer click. Feel the pulse! 🎵</p>
+    <div style="display:flex; justify-content:center; gap:0; margin-bottom:16px;">
+      <div class="time-sig-select" id="timeSigSelect">
+        <button class="ts-btn active" data-beats="4">4/4</button>
+        <button class="ts-btn" data-beats="3">3/4</button>
+        <button class="ts-btn" data-beats="6">6/8</button>
+        <button class="ts-btn" data-beats="2">2/4</button>
+      </div>
+    </div>
+    <div class="beat-row" id="beatRow"></div>
+    <div class="rhythm-controls">
+      <button class="rhy-btn" id="tempoDown">− Slower</button>
+      <span class="tempo-display" id="tempoDisplay">♩ = 80</span>
+      <button class="rhy-btn" id="tempoUp">+ Faster</button>
+      <button class="rhy-btn primary" id="playBtn">▶ Play</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 4 — TIPS ══ -->
+<section class="section reveal" id="s4">
+  <div class="section-label">Chapter 04</div>
+  <h2>Tips &amp; <span>Techniques</span> to Improve</h2>
+  <p>The difference between sight readers who plateau and those who improve rapidly almost always comes down to <em>how</em> they practice — not how much. Here are the techniques that professional musicians and exam-prep teachers swear by.</p>
+
+  <div class="tips-list">
+    <div class="tip-item">
+      <div class="tip-num">1</div>
+      <div class="tip-content">
+        <h3>Scan Before You Play — the 30-Second Rule</h3>
+        <p>Before playing a single note, spend 30 seconds scanning the whole piece. Look for the time signature, key signature, any accidentals, tempo markings, dynamic changes, and challenging rhythms. Great sight readers are already three bars ahead in their minds.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">2</div>
+      <div class="tip-content">
+        <h3>Never Stop — Keep the Pulse Alive</h3>
+        <p>The number one rule of sight reading is <strong>never stop to correct a mistake</strong>. Keep moving forward, keep counting. A slight wrong note that keeps the rhythm is always better than a rhythmically correct note that breaks the flow. In a performance or exam, the beat must go on.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">3</div>
+      <div class="tip-content">
+        <h3>Read Intervals, Not Individual Notes</h3>
+        <p>Instead of reading note-by-note (C… then E… then G…), train your eye to see the <em>gap</em> between notes — are they steps apart, skips apart, or leaps? This interval-based reading is 3–4× faster and what advanced musicians naturally do.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">4</div>
+      <div class="tip-content">
+        <h3>Read New Music Every Single Day</h3>
+        <p>Even five minutes of daily sight reading on fresh material — a different piece every day — builds fluency faster than hours of working on the same piece. Novelty is the engine of improvement. Think of it like learning new vocabulary every day.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">5</div>
+      <div class="tip-content">
+        <h3>Start Slower Than You Think You Need To</h3>
+        <p>Set the tempo low enough that you can play accurately. Accuracy at a slow tempo is infinitely more valuable than inaccuracy at the right tempo. Once accuracy is consistent, speed comes naturally — and faster than you'd expect.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">6</div>
+      <div class="tip-content">
+        <h3>Practice Without Looking at Your Hands</h3>
+        <p>Your eyes belong on the music, not on the keys. Many students develop the habit of glancing down at their hands — especially at awkward jumps. Train yourself to look up by covering your hands with a cloth during practice. It feels uncomfortable at first. It works.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">7</div>
+      <div class="tip-content">
+        <h3>Use Music Below Your Level</h3>
+        <p>Sight read pieces that are one to two grades below your current playing level. The goal is fluency, not challenge. Reading easy music quickly builds the pattern-recognition your brain needs to tackle harder music later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 5 — MISTAKES ══ -->
+<section class="section reveal" id="s5">
+  <div class="section-label">Chapter 05</div>
+  <h2>Common <span>Mistakes</span> to Avoid</h2>
+  <p>Even dedicated students make the same sight reading mistakes repeatedly — often without realising it. Recognising these patterns is the first step to breaking them. Click each mistake to reveal the fix.</p>
+
+  <div class="accordion" id="accordion"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 6 — EXERCISES ══ -->
+<section class="section reveal" id="s6">
+  <div class="section-label">Chapter 06</div>
+  <h2>Practice <span>Exercises</span></h2>
+  <p>Knowing the theory is one thing. Putting it into practice is another. Use these flashcard exercises to drill note recognition and test yourself. Flip each card to reveal the answer.</p>
+
+  <div class="flashcard-section">
+    <div class="flashcard-wrap" id="flashcardWrap">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <div class="card-label">Exercise Card</div>
+          <div class="card-q" id="cardQ"></div>
+          <div class="card-flip-hint">Tap to reveal answer ↩</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-label">Answer</div>
+          <div class="card-a" id="cardA"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flashcard-nav">
+      <button class="fc-btn" id="fcPrev">← Previous</button>
+      <span class="fc-counter" id="fcCounter">1 / 10</span>
+      <button class="fc-btn" id="fcNext">Next →</button>
+    </div>
+  </div>
+
+  <!-- Self-assessment -->
+  <div class="progress-tracker" style="margin-top:36px">
+    <div class="progress-title">📊 Rate Your Sight Reading — Honest Self-Assessment</div>
+    <div id="skillBars"></div>
+    <div style="margin-top:24px; font-size:0.9rem; color:var(--muted); margin-bottom:10px;">How do you feel about your sight reading overall today?</div>
+    <div class="self-rate-grid" id="selfRateGrid">
+      <div class="rate-btn" data-val="1">😬<div class="rate-label">Beginner</div></div>
+      <div class="rate-btn" data-val="2">🙂<div class="rate-label">Improving</div></div>
+      <div class="rate-btn" data-val="3">😊<div class="rate-label">Getting there</div></div>
+      <div class="rate-btn" data-val="4">😎<div class="rate-label">Confident</div></div>
+      <div class="rate-btn" data-val="5">🌟<div class="rate-label">Advanced</div></div>
+    </div>
+    <div id="rateMessage" style="margin-top:16px; font-size:0.95rem; color:var(--teal2); min-height:24px; font-weight:500;"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 7 — DAILY ROUTINE ══ -->
+<section class="section reveal" id="s7">
+  <div class="section-label">Chapter 07</div>
+  <h2>Your <span>5-Minute</span> Daily Routine</h2>
+  <p>You don't need an hour a day to become a great sight reader. You need <strong>five focused minutes</strong>, every single day. Consistency over intensity — every time. Here is a proven routine that works for beginners, intermediates, and advanced players alike.</p>
+
+  <div class="routine-steps">
+    <div class="routine-step">
+      <div class="step-circle">01</div>
+      <div class="step-body">
+        <div class="step-time">1 minute</div>
+        <h3>Scan & Identify</h3>
+        <p>Choose a fresh piece (one you've never played). Identify the key signature, time signature, tempo marking, and any tricky rhythms or accidentals. Do this entirely away from the piano — no playing yet.</p>
+      </div>
+    </div>
+    <div class="routine-step">
+      <div class="step-circle">02</div>
+      <div class="step-body">
+        <div class="step-time">30 seconds</div>
+        <h3>Clap the Rhythm First</h3>
+        <p>Clap through the whole piece while counting the beats out loud. Don't touch the keys. Get the rhythm into your body before your fingers touch anything.</p>
+      </div>
+    </div>
+    <div class="routine-step">
+      <div class="step-circle">03</div>
+      <div class="step-body">
+        <div class="step-time">2 minutes</div>
+        <h3>Play Through — No Stopping</h3>
+        <p>Set a slow tempo and play the piece start to finish. Keep going no matter what. Keep counting. Let wrong notes go. Maintain the pulse above everything else.</p>
+      </div>
+    </div>
+    <div class="routine-step">
+      <div class="step-circle">04</div>
+      <div class="step-body">
+        <div class="step-time">1 minute</div>
+        <h3>Reflect on 1 Weak Spot</h3>
+        <p>Identify the single trickiest moment — one rhythm, one interval, one note you hesitated on. Practice just that bar in isolation, then move on. Never the whole piece again today.</p>
+      </div>
+    </div>
+    <div class="routine-step">
+      <div class="step-circle">05</div>
+      <div class="step-body">
+        <div class="step-time">30 seconds</div>
+        <h3>Log It &amp; Move On</h3>
+        <p>Write down the piece name and a one-line note about what challenged you. Tomorrow, pick a completely different piece. Progress is built on variety, not repetition.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote" style="margin-top:8px">
+    <p>"5 minutes a day for 365 days = 30+ hours of deliberate sight reading practice. That is transformational."</p>
+  </div>
+
+  <div style="background:var(--card); border:1px solid rgba(45,212,191,0.2); border-radius:var(--r); padding:24px; margin-top:28px;">
+    <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--teal); text-transform:uppercase; margin-bottom:14px;">📚 Recommended Resources</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:12px;">
+      <div style="background:var(--ink3); border-radius:8px; padding:14px;">
+        <div style="font-weight:600; font-size:0.95rem; color:var(--cream); margin-bottom:4px;">ABRSM Sight Reading</div>
+        <div style="font-size:0.85rem; color:var(--muted)">Grade-by-grade books covering all styles. The gold standard for exam prep.</div>
+      </div>
+      <div style="background:var(--ink3); border-radius:8px; padding:14px;">
+        <div style="font-weight:600; font-size:0.95rem; color:var(--cream); margin-bottom:4px;">Trinity Sight Reading</div>
+        <div style="font-size:0.85rem; color:var(--muted)">More varied repertoire. Great for students who find ABRSM too strict.</div>
+      </div>
+      <div style="background:var(--ink3); border-radius:8px; padding:14px;">
+        <div style="font-weight:600; font-size:0.95rem; color:var(--cream); margin-bottom:4px;">IMSLP.org</div>
+        <div style="font-size:0.85rem; color:var(--muted)">Thousands of free public-domain scores. Endless fresh material every day.</div>
+      </div>
+      <div style="background:var(--ink3); border-radius:8px; padding:14px;">
+        <div style="font-weight:600; font-size:0.95rem; color:var(--cream); margin-bottom:4px;">Ask Your Teacher</div>
+        <div style="font-size:0.85rem; color:var(--muted)">Your teacher at Fingers On Keys can curate sight reading material precisely for your level.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="brand">🎹 Fingers On Keys</div>
+  <p>Empowering musicians of all ages in Delhi — one note at a time.</p>
+  <p style="margin-top:8px; font-size:0.78rem;">fingersonkeys.in</p>
+</footer>
+
+<script>
+// ══════════════════════════════════
+// WEB AUDIO ENGINE
+// ══════════════════════════════════
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// Piano-like tone using harmonics + envelope
+function playPianoNote(freq, duration = 1.2, volume = 0.5) {
+  const ctx = getAudioCtx();
+  const now = ctx.currentTime;
+  const masterGain = ctx.createGain();
+  masterGain.connect(ctx.destination);
+
+  // Build harmonics for piano timbre
+  const harmonics = [
+    { ratio: 1,    gain: 0.6  },
+    { ratio: 2,    gain: 0.25 },
+    { ratio: 3,    gain: 0.12 },
+    { ratio: 4,    gain: 0.06 },
+    { ratio: 5,    gain: 0.03 },
+  ];
+
+  harmonics.forEach(h => {
+    const osc = ctx.createOscillator();
+    const g   = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(freq * h.ratio, now);
+    // Slight detuning for warmth
+    osc.detune.setValueAtTime((Math.random() - 0.5) * 4, now);
+    g.gain.setValueAtTime(0, now);
+    g.gain.linearRampToValueAtTime(volume * h.gain, now + 0.008);
+    g.gain.exponentialRampToValueAtTime(volume * h.gain * 0.4, now + 0.1);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    osc.connect(g);
+    g.connect(masterGain);
+    osc.start(now);
+    osc.stop(now + duration + 0.05);
+  });
+
+  // Master envelope
+  masterGain.gain.setValueAtTime(1, now);
+  masterGain.gain.setValueAtTime(1, now + duration * 0.7);
+  masterGain.gain.linearRampToValueAtTime(0, now + duration + 0.05);
+}
+
+// Beat click sound: accent=true for beat 1
+function playBeatClick(isAccent) {
+  const ctx = getAudioCtx();
+  const now = ctx.currentTime;
+
+  // Short noise burst shaped like a woodblock click
+  const bufSize = ctx.sampleRate * 0.04;
+  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+
+  const noise = ctx.createBufferSource();
+  noise.buffer = buf;
+
+  // Bandpass filter — accent higher, normal lower
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = isAccent ? 1600 : 900;
+  filter.Q.value = isAccent ? 1.5 : 2;
+
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(isAccent ? 1.2 : 0.7, now);
+  env.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+
+  noise.connect(filter);
+  filter.connect(env);
+  env.connect(ctx.destination);
+  noise.start(now);
+  noise.stop(now + 0.05);
+
+  // Sine tone for pitch body
+  const tone = ctx.createOscillator();
+  const toneEnv = ctx.createGain();
+  tone.frequency.value = isAccent ? 1000 : 600;
+  toneEnv.gain.setValueAtTime(isAccent ? 0.4 : 0.25, now);
+  toneEnv.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+  tone.connect(toneEnv);
+  toneEnv.connect(ctx.destination);
+  tone.start(now);
+  tone.stop(now + 0.04);
+}
+
+// Note frequencies (Hz)
+const NOTE_FREQS = {
+  'E4': 329.63, 'F4': 349.23, 'G4': 392.00, 'A4': 440.00,
+  'B4': 493.88, 'C5': 523.25, 'D5': 587.33,
+  'E5': 659.25, 'F5': 698.46, 'G5': 783.99
+};
+
+// ══════════════════════════════════
+// NAV DOTS
+// ══════════════════════════════════
+const sections = ['s0','s1','s2','s3','s4','s5','s6','s7'];
+const dots = document.querySelectorAll('.nav-dot');
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = sections.indexOf(e.target.id);
+      dots.forEach(d => d.classList.remove('active'));
+      if (idx >= 0) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// ══════════════════════════════════
+// SCROLL REVEAL
+// ══════════════════════════════════
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ══════════════════════════════════
+// INTERACTIVE STAFF NOTES
+// ══════════════════════════════════
+const staffNotes = [
+  { name:'E4', pos:112, hint:'Line 1 — Every', color:'#FB7185', desc:'E4 sits on the 1st (bottom) line. Remember: "Every" from "Every Good Boy Deserves Fudge"' },
+  { name:'F4', pos:103, hint:'Space 1 — FACE', color:'#FBBF24', desc:'F4 sits in the 1st space. The "F" in "FACE"!' },
+  { name:'G4', pos:93,  hint:'Line 2 — Good',  color:'#34D399', desc:'G4 sits on the 2nd line. Remember: "Good" from the mnemonic.' },
+  { name:'A4', pos:84,  hint:'Space 2 — FACE', color:'#60A5FA', desc:'A4 is in the 2nd space. The "A" in "FACE"!' },
+  { name:'B4', pos:75,  hint:'Line 3 (middle)', color:'#A78BFA', desc:'B4 is on the middle (3rd) line — a great landmark note!' },
+  { name:'C5', pos:66,  hint:'Space 3 — FACE', color:'#F472B6', desc:'Middle C\'s octave up sits in the 3rd space. The "C" in "FACE"!' },
+  { name:'D5', pos:57,  hint:'Line 4 — Deserves', color:'#FB923C', desc:'D5 is on the 4th line. Remember: "Deserves".' },
+  { name:'E5', pos:48,  hint:'Space 4 — FACE', color:'#2DD4BF', desc:'E5 is in the 4th space. The "E" in "FACE"!' },
+  { name:'F5', pos:39,  hint:'Line 5 (top)', color:'#D4A843', desc:'F5 is on the top (5th) line. Remember: "Fudge".' },
+  { name:'G5', pos:30,  hint:'Space above staff', color:'#C084FC', desc:'G5 floats just above the staff. One step up from top F.' },
+];
+
+// Build SVG notes — CORRECTED STEM DIRECTIONS
+// Lines 1-2 & Spaces 1-2 (E4,F4,G4,A4 → indices 0-3): stem UP from RIGHT side
+// Lines 3-5 & Spaces 3-4 (B4,C5,D5,E5,F5,G5 → indices 4-9): stem DOWN from LEFT side
+const svg = document.getElementById('staffSvg');
+const staffInfo = document.getElementById('staffInfo');
+staffNotes.forEach((n, i) => {
+  const x = 90 + i * 60;
+  const stemUp = i < 4; // E4, F4, G4, A4 → stem up; B4 and above → stem down
+
+  // Stem line — drawn BEFORE note head so head appears on top
+  const stemLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+  if (stemUp) {
+    // Stem UP: from RIGHT side of note, going upward
+    stemLine.setAttribute('x1', x + 8);  stemLine.setAttribute('y1', n.pos - 4);
+    stemLine.setAttribute('x2', x + 8);  stemLine.setAttribute('y2', n.pos - 38);
+  } else {
+    // Stem DOWN: from LEFT side of note, going downward
+    stemLine.setAttribute('x1', x - 8);  stemLine.setAttribute('y1', n.pos + 4);
+    stemLine.setAttribute('x2', x - 8);  stemLine.setAttribute('y2', n.pos + 38);
+  }
+  stemLine.setAttribute('stroke', n.color);
+  stemLine.setAttribute('stroke-width', '1.8');
+  stemLine.setAttribute('opacity', '0.65');
+  stemLine.style.pointerEvents = 'none';
+  svg.appendChild(stemLine);
+
+  // Note head
+  const circle = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+  circle.setAttribute('cx', x); circle.setAttribute('cy', n.pos);
+  circle.setAttribute('rx','10'); circle.setAttribute('ry','7');
+  circle.setAttribute('fill', n.color);
+  circle.setAttribute('opacity','0.85');
+  circle.setAttribute('transform', `rotate(-15 ${x} ${n.pos})`);
+  circle.style.cursor = 'pointer';
+  circle.style.transition = 'opacity 0.2s, filter 0.2s';
+  svg.appendChild(circle);
+
+  // Store stem reference for highlight
+  n._stem = stemLine;
+  n._circle = circle;
+
+  circle.addEventListener('click', () => {
+    // Visual highlight
+    staffNotes.forEach(nn => {
+      nn._circle.setAttribute('opacity','0.35');
+      nn._stem.setAttribute('opacity','0.2');
+    });
+    circle.setAttribute('opacity','1');
+    stemLine.setAttribute('opacity','0.9');
+    // Info text
+    staffInfo.textContent = `🎵 ${n.name} — ${n.desc}`;
+    staffInfo.style.color = n.color;
+    // Play piano note
+    if (NOTE_FREQS[n.name]) playPianoNote(NOTE_FREQS[n.name]);
+    // Highlight matching chip
+    document.querySelectorAll('.note-chip').forEach((c,ci) => {
+      c.style.borderColor = ci === i ? n.color : '';
+    });
+  });
+});
+
+// Note grid chips
+const noteGrid = document.getElementById('noteGrid');
+staffNotes.forEach((n, i) => {
+  const chip = document.createElement('div');
+  chip.className = 'note-chip';
+  chip.innerHTML = `<div class="nname" style="color:${n.color}">${n.name}</div><div class="nhint">${n.hint}</div>`;
+  chip.addEventListener('click', () => {
+    // Visual
+    staffNotes.forEach(nn => {
+      nn._circle.setAttribute('opacity','0.35');
+      nn._stem.setAttribute('opacity','0.2');
+    });
+    n._circle.setAttribute('opacity','1');
+    n._stem.setAttribute('opacity','0.9');
+    staffInfo.textContent = `🎵 ${n.name} — ${n.desc}`;
+    staffInfo.style.color = n.color;
+    document.querySelectorAll('.note-chip').forEach(c => c.style.borderColor = '');
+    chip.style.borderColor = n.color;
+    // Play piano note
+    if (NOTE_FREQS[n.name]) playPianoNote(NOTE_FREQS[n.name]);
+  });
+  noteGrid.appendChild(chip);
+});
+
+// ══════════════════════════════════
+// RHYTHM TRAINER
+// ══════════════════════════════════
+let beats = 4, tempo = 80, playing = false, beatIdx = 0, interval = null;
+const beatRow = document.getElementById('beatRow');
+const playBtn = document.getElementById('playBtn');
+const tempoDisplay = document.getElementById('tempoDisplay');
+
+function buildBeats() {
+  beatRow.innerHTML = '';
+  for (let i = 0; i < beats; i++) {
+    const btn = document.createElement('div');
+    btn.className = 'beat-btn' + (i === 0 ? ' accent' : '');
+    btn.textContent = i + 1;
+    btn.id = `beat_${i}`;
+    beatRow.appendChild(btn);
+  }
+}
+buildBeats();
+
+document.getElementById('timeSigSelect').addEventListener('click', e => {
+  const b = e.target.closest('[data-beats]');
+  if (!b) return;
+  document.querySelectorAll('.ts-btn').forEach(t => t.classList.remove('active'));
+  b.classList.add('active');
+  beats = parseInt(b.dataset.beats);
+  beatIdx = 0;
+  buildBeats();
+});
+
+function tick() {
+  const prev = (beatIdx - 1 + beats) % beats;
+  const prevBtn = document.getElementById(`beat_${prev}`);
+  if (prevBtn) prevBtn.classList.remove('playing');
+  const cur = document.getElementById(`beat_${beatIdx}`);
+  if (cur) cur.classList.add('playing');
+  // Play click sound — accent on beat 1 (index 0)
+  playBeatClick(beatIdx === 0);
+  beatIdx = (beatIdx + 1) % beats;
+}
+
+playBtn.addEventListener('click', () => {
+  if (playing) {
+    clearInterval(interval);
+    playing = false;
+    playBtn.textContent = '▶ Play';
+    document.querySelectorAll('.beat-btn').forEach(b => b.classList.remove('playing'));
+    beatIdx = 0;
+  } else {
+    playing = true;
+    playBtn.textContent = '■ Stop';
+    tick();
+    interval = setInterval(tick, 60000 / tempo);
+  }
+});
+
+document.getElementById('tempoUp').addEventListener('click', () => {
+  tempo = Math.min(160, tempo + 10);
+  tempoDisplay.textContent = `♩ = ${tempo}`;
+  if (playing) { clearInterval(interval); interval = setInterval(tick, 60000/tempo); }
+});
+document.getElementById('tempoDown').addEventListener('click', () => {
+  tempo = Math.max(40, tempo - 10);
+  tempoDisplay.textContent = `♩ = ${tempo}`;
+  if (playing) { clearInterval(interval); interval = setInterval(tick, 60000/tempo); }
+});
+
+// ══════════════════════════════════
+// ACCORDION — MISTAKES
+// ══════════════════════════════════
+const mistakes = [
+  { badge:'MISTAKE 01', title:'Stopping to fix wrong notes',
+    body:'Stopping mid-piece is the single most damaging sight reading habit. It tells examiners and audiences that you can\'t maintain a pulse — which is the foundation of all music.',
+    fix:'🔧 Fix: Adopt a "no-stop" rule from day one. Wrong note, right rhythm is the mantra. Practice this until it becomes instinct.' },
+  { badge:'MISTAKE 02', title:'Not checking the key signature before starting',
+    body:'Students begin playing and hit unexpected sharps or flats throughout, stumbling repeatedly — simply because they didn\'t spend five seconds checking the key signature at the beginning.',
+    fix:'🔧 Fix: Build a pre-play ritual. Key sig → time sig → tempo → tricky bars. Make it automatic, every single time.' },
+  { badge:'MISTAKE 03', title:'Looking at hands instead of the music',
+    body:'Your eyes drift to the keyboard — especially during large jumps or difficult passages. But every time your eyes leave the score, you lose your place and break your reading flow.',
+    fix:'🔧 Fix: Practice with a cloth over your hands twice a week. It forces eye discipline rapidly.' },
+  { badge:'MISTAKE 04', title:'Playing too fast for accuracy',
+    body:'Students set the tempo at "how fast the piece is supposed to go" rather than "how fast they can currently play it accurately." Speed is the enemy of early sight reading practice.',
+    fix:'🔧 Fix: Halve the tempo. If it feels embarrassingly slow, it\'s probably the right speed for sight reading practice.' },
+  { badge:'MISTAKE 05', title:'Only reading through familiar pieces',
+    body:'Re-reading pieces you already know doesn\'t build sight reading — it just builds repertoire recall. The brain needs genuine novelty to develop real fluency.',
+    fix:'🔧 Fix: One new piece every single practice session. Even a few bars of something brand new counts.' },
+  { badge:'MISTAKE 06', title:'Ignoring dynamics and phrasing while reading',
+    body:'Reading notes and rhythms but ignoring all expression markings (p, f, cresc., legato) leads to robotic playing — and lower marks in exams.',
+    fix:'🔧 Fix: During your pre-play scan, notice at least two dynamic markings. Even a slight attempt at expression scores significantly better.' },
+];
+
+const accordion = document.getElementById('accordion');
+mistakes.forEach((m, i) => {
+  const item = document.createElement('div');
+  item.className = 'acc-item';
+  item.innerHTML = `
+    <div class="acc-header">
+      <div class="acc-header-left">
+        <span class="acc-badge">${m.badge}</span>
+        <span class="acc-title">${m.title}</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <p>${m.body}</p>
+        <div class="fix-badge">${m.fix}</div>
+      </div>
+    </div>`;
+  item.querySelector('.acc-header').addEventListener('click', () => {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(a => a.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+  accordion.appendChild(item);
+});
+
+// ══════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════
+const cards = [
+  { q:'What is the FIRST thing you should do before sight reading a new piece?', a:'Scan it! Check the key signature, time signature, tempo, tricky rhythms, and dynamic markings — before playing a single note.' },
+  { q:'A note sits on the middle line of the treble clef. What note is it?', a:'B4 — the middle line (Line 3) in the treble clef is always B. It\'s one of the most important landmark notes to memorise!' },
+  { q:'What do the spaces in the treble clef spell from bottom to top?', a:'"FACE" — F, A, C, E. Easy! Whenever you see a note in a space, just remember this word.' },
+  { q:'What does it mean if you see a ♭ on the B line at the beginning of a piece?', a:'You\'re in F major (or D minor)! A B♭ in the key signature means every B note in the piece is played as B flat — no need to write ♭ every time.' },
+  { q:'What is the golden rule of sight reading — never do this!', a:'Never stop! Keep going even if you hit a wrong note. Maintaining the rhythm is more important than playing every note perfectly.' },
+  { q:'A crotchet (quarter note) gets 1 beat. How many beats does a minim (half note) get?', a:'2 beats. A minim is worth double a crotchet. A semibreve (whole note) gets 4 beats — double the minim.' },
+  { q:'What does the time signature "3/4" tell you?', a:'There are 3 beats per bar, and the crotchet (quarter note) gets 1 beat. Waltz time! Count: 1-2-3, 1-2-3.' },
+  { q:'You see a note on the top (5th) line of the treble clef. What note is it?', a:'F5 — the top line is always F in the treble clef. Remember: "Fudge" from "Every Good Boy Deserves Fudge"!' },
+  { q:'What level of music should you use for sight reading practice?', a:'One to two grades BELOW your current playing level. Fluency and speed come from easy material, not challenging material.' },
+  { q:'What does it mean to read by intervals rather than individual notes?', a:'Instead of reading each note name separately, you look at the shape — is the next note a step up, a skip, or a big leap? This is far faster and what all advanced musicians do naturally.' },
+];
+
+let cardIdx = 0;
+const flashcard = document.getElementById('flashcard');
+const cardQ = document.getElementById('cardQ');
+const cardA = document.getElementById('cardA');
+const fcCounter = document.getElementById('fcCounter');
+
+function showCard(i) {
+  flashcard.classList.remove('flipped');
+  setTimeout(() => {
+    cardQ.textContent = cards[i].q;
+    cardA.textContent = cards[i].a;
+    fcCounter.textContent = `${i+1} / ${cards.length}`;
+  }, 200);
+}
+showCard(0);
+document.getElementById('flashcardWrap').addEventListener('click', () => flashcard.classList.toggle('flipped'));
+document.getElementById('fcNext').addEventListener('click', () => { cardIdx=(cardIdx+1)%cards.length; showCard(cardIdx); });
+document.getElementById('fcPrev').addEventListener('click', () => { cardIdx=(cardIdx-1+cards.length)%cards.length; showCard(cardIdx); });
+
+// ══════════════════════════════════
+// SKILL BARS
+// ══════════════════════════════════
+const skills = [
+  { name: 'Note Recognition Speed', level: 'Treble Clef', pct: 45 },
+  { name: 'Rhythm Accuracy',        level: 'Counting',    pct: 35 },
+  { name: 'Key Signature Recall',   level: 'Major Keys',  pct: 55 },
+  { name: 'Maintaining Pulse',      level: 'No Stopping', pct: 30 },
+  { name: 'Reading Ahead',          level: '2–3 bars',    pct: 25 },
+];
+const skillBarsEl = document.getElementById('skillBars');
+skills.forEach(s => {
+  const row = document.createElement('div'); row.className = 'skill-row';
+  row.innerHTML = `
+    <div class="skill-meta">
+      <span class="skill-name">${s.name}</span>
+      <span class="skill-level">${s.level}</span>
+    </div>
+    <div class="skill-bar-bg"><div class="skill-bar" data-pct="${s.pct}"></div></div>`;
+  skillBarsEl.appendChild(row);
+});
+// Animate bars on intersection
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.skill-bar').forEach(b => {
+        b.style.width = b.dataset.pct + '%';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+barObs.observe(skillBarsEl);
+
+// Self-rate
+const rateMessages = {
+  1: '🌱 Welcome to the beginning! Every master was once a beginner. Your journey starts NOW.',
+  2: '💪 You\'re on your way! Keep that 5-minute daily habit and you\'ll be amazed at the progress.',
+  3: '🎯 Good progress! This is the stage where consistent practice produces the biggest leaps.',
+  4: '🌟 You\'re doing well! Focus on reading further ahead and tackling unfamiliar styles.',
+  5: '🏆 Advanced sight reader! Work on sight reading in uncommon keys and complex rhythmic patterns.',
+};
+document.querySelectorAll('.rate-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('rateMessage').textContent = rateMessages[btn.dataset.val];
+  });
+});
+</script>
+</body>
+</html>
