@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keys & Key Signatures 🎹 — Fingers On Keys</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #E8F4FD;
+    --sun: #FFD93D;
+    --coral: #FF6B6B;
+    --mint: #6BCB77;
+    --lavender: #A78BFA;
+    --ocean: #4D96FF;
+    --peach: #FFB347;
+    --rose: #FF85A1;
+    --dark: #2D3748;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F0F7FF 50%, #FFF0F9 100%);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Floating music notes background */
+  .bg-notes {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .bg-note {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.07;
+    animation: floatNote linear infinite;
+  }
+  @keyframes floatNote {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.07; }
+    90% { opacity: 0.07; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Header */
+  header {
+    position: relative; z-index: 10;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 20px 60px;
+    text-align: center;
+    clip-path: ellipse(100% 85% at 50% 15%);
+    padding-bottom: 80px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-family: 'Baloo 2', cursive;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+  }
+  header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    color: #fff;
+    line-height: 1.1;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    margin-bottom: 12px;
+  }
+  header p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 600;
+  }
+  .piano-emoji { font-size: 2rem; display: block; margin-bottom: 8px; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+  /* Main content */
+  main {
+    position: relative; z-index: 10;
+    max-width: 820px;
+    margin: -30px auto 0;
+    padding: 0 16px 60px;
+  }
+
+  /* Section cards */
+  .section-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(30px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  .section-card:nth-child(1) { animation-delay: 0.1s; }
+  .section-card:nth-child(2) { animation-delay: 0.2s; }
+  .section-card:nth-child(3) { animation-delay: 0.3s; }
+  .section-card:nth-child(4) { animation-delay: 0.4s; }
+  .section-card:nth-child(5) { animation-delay: 0.5s; }
+  .section-card:nth-child(6) { animation-delay: 0.6s; }
+
+  .section-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+  .card-purple::before { background: linear-gradient(90deg, #667eea, #764ba2); }
+  .card-coral::before { background: linear-gradient(90deg, #FF6B6B, #FFB347); }
+  .card-mint::before { background: linear-gradient(90deg, #6BCB77, #4D96FF); }
+  .card-sun::before { background: linear-gradient(90deg, #FFD93D, #FF6B6B); }
+  .card-ocean::before { background: linear-gradient(90deg, #4D96FF, #A78BFA); }
+  .card-rose::before { background: linear-gradient(90deg, #FF85A1, #FFB347); }
+
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem; font-weight: 800;
+    color: #fff; margin-bottom: 12px;
+  }
+  .num-purple { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .num-coral { background: linear-gradient(135deg, #FF6B6B, #FFB347); }
+  .num-mint { background: linear-gradient(135deg, #6BCB77, #4D96FF); }
+  .num-sun { background: linear-gradient(135deg, #FFD93D, #FF6B6B); }
+  .num-ocean { background: linear-gradient(135deg, #4D96FF, #A78BFA); }
+  .num-rose { background: linear-gradient(135deg, #FF85A1, #FFB347); }
+
+  h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.75rem; font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--dark);
+    margin: 20px 0 10px;
+  }
+  p { font-size: 1.05rem; line-height: 1.75; color: #4A5568; margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Fun callout boxes */
+  .fun-box {
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .fun-box .icon { font-size: 1.8rem; flex-shrink: 0; }
+  .fun-box p { margin: 0; font-size: 0.98rem; }
+  .fun-box.yellow { background: #FFFBEB; border: 2px solid #FFD93D; }
+  .fun-box.green { background: #F0FFF4; border: 2px solid #68D391; }
+  .fun-box.blue { background: #EBF8FF; border: 2px solid #63B3ED; }
+  .fun-box.pink { background: #FFF0F6; border: 2px solid #F687B3; }
+
+  /* Piano keyboard */
+  .piano-wrap { display: flex; justify-content: center; margin: 24px 0; }
+  .piano {
+    position: relative;
+    display: flex;
+    background: #2D3748;
+    padding: 12px 12px 0;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    cursor: pointer;
+  }
+  .white-key {
+    width: 44px; height: 130px;
+    background: #fff;
+    border: 1px solid #CBD5E0;
+    border-radius: 0 0 8px 8px;
+    position: relative;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 8px;
+    font-size: 11px; font-weight: 700; color: #718096;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    user-select: none;
+    z-index: 1;
+  }
+  .white-key:hover { background: #EBF8FF; }
+  .white-key.pressed { background: #BEE3F8; transform: scaleY(0.97); transform-origin: top; }
+  .white-key.highlighted { background: linear-gradient(180deg, #FFD93D 0%, #FFC107 100%); color: #7B4F00; }
+  .white-key.highlighted:hover { background: linear-gradient(180deg, #FFE066 0%, #FFD93D 100%); }
+  .black-key {
+    width: 28px; height: 82px;
+    background: linear-gradient(180deg, #2D3748 0%, #1A202C 100%);
+    border-radius: 0 0 6px 6px;
+    position: absolute;
+    top: 12px;
+    z-index: 2;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    user-select: none;
+  }
+  .black-key:hover { background: linear-gradient(180deg, #4A5568 0%, #2D3748 100%); }
+  .black-key.pressed { background: linear-gradient(180deg, #718096 0%, #4A5568 100%); transform: scaleY(0.97); transform-origin: top; }
+  .black-key.highlighted { background: linear-gradient(180deg, #667eea 0%, #764ba2 100%); }
+
+  .key-label {
+    font-size: 10px; font-weight: 800;
+    display: block; margin-top: 4px;
+  }
+
+  /* Note display */
+  .note-display {
+    text-align: center; margin: 12px 0;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem; font-weight: 800;
+    color: #667eea;
+    min-height: 36px;
+    transition: all 0.3s;
+  }
+
+  /* Circle of Fifths */
+  .cof-container {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 24px 0;
+  }
+  .cof-wrapper {
+    position: relative;
+    width: min(400px, 90vw);
+    height: min(400px, 90vw);
+    margin: 0 auto;
+  }
+  #cof-svg { width: 100%; height: 100%; }
+
+  .cof-legend {
+    display: flex; gap: 20px; justify-content: center;
+    flex-wrap: wrap; margin-top: 16px;
+  }
+  .cof-legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.9rem; font-weight: 700;
+  }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+  .cof-info {
+    margin-top: 16px;
+    background: #F7FAFC;
+    border-radius: 16px;
+    padding: 16px 20px;
+    text-align: center;
+    min-height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .cof-info-text {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem; font-weight: 700;
+    color: #4A5568;
+  }
+  .cof-info-sub {
+    font-size: 0.9rem; color: #718096; margin-top: 4px;
+  }
+
+  /* Key Signature visualizer */
+  .key-sig-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px; margin: 20px 0;
+  }
+  .key-sig-card {
+    background: #F7FAFC;
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .key-sig-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .key-sig-card.selected { border-color: #667eea; background: #EEF2FF; }
+  .key-name { font-family: 'Baloo 2', cursive; font-size: 1.3rem; font-weight: 800; color: var(--dark); }
+  .key-sharps { font-size: 0.85rem; font-weight: 700; color: #718096; margin-top: 2px; }
+  .key-sharps.sharp { color: #E53E3E; }
+  .key-sharps.flat { color: #3182CE; }
+  .staff-mini { font-size: 1.6rem; letter-spacing: 2px; display: block; margin: 6px 0; }
+
+  /* Staff viewer */
+  .staff-display {
+    background: #FAFAFA;
+    border-radius: 20px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+    border: 2px solid #E2E8F0;
+  }
+  .staff-svg-wrap { display: flex; justify-content: center; }
+
+  /* Sharps & Flats explainer */
+  .accidental-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin: 16px 0;
+  }
+  .accidental-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-weight: 700; font-size: 1rem;
+    cursor: default;
+  }
+  .pill-sharp { background: #FED7D7; color: #C53030; }
+  .pill-flat { background: #BEE3F8; color: #2B6CB0; }
+  .pill-natural { background: #C6F6D5; color: #276749; }
+
+  /* Trick boxes */
+  .trick-box {
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border: 2px dashed #A78BFA;
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .trick-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem; font-weight: 800;
+    color: #764ba2; margin-bottom: 10px;
+  }
+
+  /* Quiz */
+  .quiz-section { margin-top: 8px; }
+  .quiz-q {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 14px;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-btn {
+    background: #F7FAFC;
+    border: 2px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: #4A5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .quiz-btn:hover:not(:disabled) { background: #EBF8FF; border-color: #63B3ED; color: #2B6CB0; transform: translateX(4px); }
+  .quiz-btn.correct { background: #F0FFF4; border-color: #68D391; color: #276749; }
+  .quiz-btn.wrong { background: #FFF5F5; border-color: #FC8181; color: #C53030; }
+  .quiz-btn:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 14px; padding: 14px 18px;
+    border-radius: 12px;
+    font-weight: 700; font-size: 1rem;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: #F0FFF4; color: #276749; border: 2px solid #68D391; }
+  .quiz-feedback.wrong { background: #FFF5F5; color: #C53030; border: 2px solid #FC8181; }
+  .quiz-next {
+    margin-top: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer;
+    display: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .quiz-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+  .quiz-next.show { display: inline-block; }
+  .quiz-score {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem; font-weight: 800;
+    text-align: center; padding: 20px;
+    display: none;
+  }
+  .quiz-score.show { display: block; }
+  .score-stars { font-size: 2rem; display: block; margin-bottom: 8px; }
+
+  /* Progress bar */
+  .quiz-progress {
+    background: #E2E8F0;
+    border-radius: 50px;
+    height: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%; border-radius: 50px;
+    transition: width 0.4s ease;
+  }
+
+  /* Footer */
+  footer {
+    position: relative; z-index: 10;
+    text-align: center; padding: 40px 20px;
+    color: #A0AEC0; font-size: 0.9rem; font-weight: 600;
+  }
+  footer span { color: #667eea; }
+
+  /* Sharps order visual */
+  .sharps-order, .flats-order {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 14px 0;
+  }
+  .order-pill {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1rem; font-weight: 800;
+    display: flex; align-items: center; gap: 6px;
+    animation: popIn 0.4s ease both;
+  }
+  @keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .order-pill.sharp { background: #FED7D7; color: #C53030; border: 2px solid #FC8181; }
+  .order-pill.flat { background: #BEE3F8; color: #2B6CB0; border: 2px solid #63B3ED; }
+  .order-num { background: rgba(0,0,0,0.12); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+
+  /* Responsive */
+  @media(max-width:600px) {
+    .section-card { padding: 24px 18px; }
+    h2 { font-size: 1.4rem; }
+    .key-sig-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating notes -->
+<div class="bg-notes" id="bgNotes"></div>
+
+<header>
+  <div class="header-badge">🎹 FINGERS ON KEYS</div>
+  <span class="piano-emoji">🎵</span>
+  <h1>Keys & Key Signatures</h1>
+  <p>A magical journey through music — just for YOU! 🌟</p>
+</header>
+
+<main>
+
+  <!-- Section 1: What is a Key? -->
+  <div class="section-card card-purple">
+    <div class="section-num num-purple">1</div>
+    <h2>🏠 What is a KEY in music?</h2>
+    <p>Imagine music is like a <strong>big playground</strong> 🛝. A <strong>key</strong> is like the HOME BASE of the playground — the note that everything comes back to and feels the most comfortable!</p>
+    <div class="fun-box yellow">
+      <span class="icon">💡</span>
+      <p><strong>Easy way to remember:</strong> If music were a story, the KEY is the main character — everything revolves around it! 🦸</p>
+    </div>
+    <p>When we say a song is <strong>"in the key of C"</strong>, we mean that <strong>C is the home note</strong> — and all the other notes in the song are like friends of C who live nearby!</p>
+
+    <!-- Interactive Piano -->
+    <h3>🎹 Click the keys to hear the notes!</h3>
+    <div class="note-display" id="noteDisplay">Click any key below! 👇</div>
+    <div class="piano-wrap">
+      <div class="piano" id="pianoKeyboard"></div>
+    </div>
+    <p style="text-align:center; font-size:0.9rem; color:#A0AEC0; margin-top:8px;">The <span style="background:#FFD93D; padding:2px 8px; border-radius:6px; color:#7B4F00; font-weight:700;">yellow</span> keys are C — the most common home note!</p>
+  </div>
+
+  <!-- Section 2: What is a Scale? -->
+  <div class="section-card card-coral">
+    <div class="section-num num-coral">2</div>
+    <h2>🪜 What is a SCALE?</h2>
+    <p>A <strong>scale</strong> is like a <strong>staircase of notes</strong> 🪜! It starts from the home note, climbs up through 7 friends, and comes back home!</p>
+    <div class="fun-box green">
+      <span class="icon">🎶</span>
+      <p>You already know a scale! When you sing <strong>Do-Re-Mi-Fa-Sol-La-Ti-Do</strong> — that's the C major scale! 🎤</p>
+    </div>
+
+    <!-- C Scale visual -->
+    <div class="staff-display">
+      <p style="font-family:'Baloo 2',cursive; font-size:1.1rem; font-weight:800; color:#667eea; margin-bottom:12px;">The C Major Scale 🌈</p>
+      <div style="display:flex; justify-content:center; gap:0; overflow-x:auto;">
+        <svg width="480" height="120" viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg" style="max-width:100%">
+          <!-- Staff lines -->
+          <line x1="20" y1="35" x2="460" y2="35" stroke="#CBD5E0" stroke-width="1.5"/>
+          <line x1="20" y1="47" x2="460" y2="47" stroke="#CBD5E0" stroke-width="1.5"/>
+          <line x1="20" y1="59" x2="460" y2="59" stroke="#CBD5E0" stroke-width="1.5"/>
+          <line x1="20" y1="71" x2="460" y2="71" stroke="#CBD5E0" stroke-width="1.5"/>
+          <line x1="20" y1="83" x2="460" y2="83" stroke="#CBD5E0" stroke-width="1.5"/>
+          <!-- Treble clef simplified -->
+          <text x="22" y="80" font-size="58" font-family="serif" fill="#667eea" opacity="0.6">𝄞</text>
+
+          <!-- Notes on staff: C D E F G A B C -->
+          <!-- Positions (y): C=95(ledger), D=89, E=83, F=77, G=71, A=65, B=59, C=53 -->
+          <g id="scale-notes">
+            <ellipse cx="80" cy="95" rx="10" ry="7" fill="#FF6B6B" transform="rotate(-15,80,95)"/>
+            <line x1="70" y1="83" x2="90" y2="83" stroke="#CBD5E0" stroke-width="1.5"/><!-- ledger -->
+            <line x1="90" y1="95" x2="90" y2="55" stroke="#FF6B6B" stroke-width="2"/>
+            <text x="75" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">C</text>
+            <text x="75" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Do</text>
+
+            <ellipse cx="130" cy="89" rx="10" ry="7" fill="#FF8C42" transform="rotate(-15,130,89)"/>
+            <line x1="140" y1="89" x2="140" y2="49" stroke="#FF8C42" stroke-width="2"/>
+            <text x="125" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">D</text>
+            <text x="125" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Re</text>
+
+            <ellipse cx="180" cy="83" rx="10" ry="7" fill="#FFD93D" transform="rotate(-15,180,83)"/>
+            <line x1="190" y1="83" x2="190" y2="43" stroke="#FFD93D" stroke-width="2"/>
+            <text x="175" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">E</text>
+            <text x="175" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Mi</text>
+
+            <ellipse cx="230" cy="77" rx="10" ry="7" fill="#6BCB77" transform="rotate(-15,230,77)"/>
+            <line x1="240" y1="77" x2="240" y2="37" stroke="#6BCB77" stroke-width="2"/>
+            <text x="225" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">F</text>
+            <text x="225" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Fa</text>
+
+            <ellipse cx="280" cy="71" rx="10" ry="7" fill="#4D96FF" transform="rotate(-15,280,71)"/>
+            <line x1="290" y1="71" x2="290" y2="31" stroke="#4D96FF" stroke-width="2"/>
+            <text x="275" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">G</text>
+            <text x="275" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Sol</text>
+
+            <ellipse cx="330" cy="65" rx="10" ry="7" fill="#A78BFA" transform="rotate(-15,330,65)"/>
+            <line x1="340" y1="65" x2="340" y2="25" stroke="#A78BFA" stroke-width="2"/>
+            <text x="325" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">A</text>
+            <text x="325" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">La</text>
+
+            <ellipse cx="380" cy="59" rx="10" ry="7" fill="#FF85A1" transform="rotate(-15,380,59)"/>
+            <line x1="390" y1="59" x2="390" y2="19" stroke="#FF85A1" stroke-width="2"/>
+            <text x="375" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">B</text>
+            <text x="375" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Ti</text>
+
+            <ellipse cx="430" cy="53" rx="10" ry="7" fill="#FF6B6B" transform="rotate(-15,430,53)"/>
+            <line x1="440" y1="53" x2="440" y2="13" stroke="#FF6B6B" stroke-width="2"/>
+            <text x="425" y="115" font-size="11" font-family="Nunito,sans-serif" font-weight="800" fill="#4A5568" text-anchor="middle">C</text>
+            <text x="425" y="127" font-size="9" fill="#A0AEC0" text-anchor="middle">Do</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="fun-box blue">
+      <span class="icon">🤩</span>
+      <p>The <strong>C major scale</strong> is the easiest key — it uses <strong>ONLY the white keys</strong> on the piano! No black keys needed! 🎹✨</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Sharps & Flats -->
+  <div class="section-card card-mint">
+    <div class="section-num num-mint">3</div>
+    <h2>🔴🔵 Sharps & Flats — What Are They?</h2>
+    <p>When we want to start our <strong>staircase of notes</strong> from a different note (not C), we sometimes need to <strong>adjust</strong> some notes to make them sound just right. These adjusted notes are called <strong>Sharps (♯)</strong> and <strong>Flats (♭)</strong>!</p>
+
+    <div class="accidental-row">
+      <div class="accidental-pill pill-sharp">♯ Sharp <span style="font-weight:400; font-size:0.85rem;">= go UP a little</span></div>
+      <div class="accidental-pill pill-flat">♭ Flat <span style="font-weight:400; font-size:0.85rem;">= go DOWN a little</span></div>
+      <div class="accidental-pill pill-natural">♮ Natural <span style="font-weight:400; font-size:0.85rem;">= go back to normal</span></div>
+    </div>
+
+    <div class="fun-box yellow">
+      <span class="icon">🍕</span>
+      <p><strong>Think of it like pizza toppings!</strong> A "sharp" adds a little extra topping (goes up), and a "flat" takes some away (goes down). A "natural" puts it back to the original! 🍕</p>
+    </div>
+
+    <p>On a piano, the <strong>black keys</strong> are the sharps and flats! That's why they're called <strong>black keys</strong> — they're the "in-between" notes.</p>
+
+    <h3>🎵 The Order of Sharps — "Fat Cats Go Down Alleys Eating Bread"</h3>
+    <p>Sharps always appear in this exact order. Remember it with this funny sentence:</p>
+    <div class="sharps-order" id="sharpsOrder"></div>
+
+    <h3>🎵 The Order of Flats — "Battle Ends And Down Goes Charles' Father"</h3>
+    <p>Flats also have their own order — and it's the <strong>exact reverse</strong> of sharps!</p>
+    <div class="flats-order" id="flatsOrder"></div>
+  </div>
+
+  <!-- Section 4: Circle of Fifths -->
+  <div class="section-card card-sun">
+    <div class="section-num num-sun">4</div>
+    <h2>⭕ The Magic Circle of Fifths!</h2>
+    <p>Now here comes the most magical thing in all of music theory — the <strong>Circle of Fifths</strong>! 🪄</p>
+    <div class="fun-box pink">
+      <span class="icon">🎡</span>
+      <p>Imagine a <strong>Ferris wheel 🎡</strong> at a fair — but instead of seats, it has all 12 musical keys! As you go around, each key adds exactly <strong>one more sharp or flat</strong>. That's the Circle of Fifths!</p>
+    </div>
+
+    <div class="cof-container">
+      <div class="cof-wrapper">
+        <svg id="cof-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Will be drawn by JS -->
+        </svg>
+      </div>
+      <div class="cof-legend">
+        <div class="cof-legend-item"><div class="legend-dot" style="background:#FF6B6B"></div> Major Keys (outer)</div>
+        <div class="cof-legend-item"><div class="legend-dot" style="background:#A78BFA"></div> Relative Minor (inner)</div>
+        <div class="cof-legend-item"><div class="legend-dot" style="background:#FFD93D; border:2px solid #FFC107"></div> Sharps ♯</div>
+        <div class="cof-legend-item"><div class="legend-dot" style="background:#63B3ED; border:2px solid #4299E1"></div> Flats ♭</div>
+      </div>
+      <div class="cof-info" id="cofInfo">
+        <div>
+          <div class="cof-info-text">👆 Click any section of the circle!</div>
+          <div class="cof-info-sub">Learn about each key and how many sharps or flats it has</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fun-box green">
+      <span class="icon">🔢</span>
+      <div>
+        <p><strong>Here's the secret pattern:</strong></p>
+        <p>Going <strong>clockwise</strong> → each key adds <strong>1 more SHARP ♯</strong></p>
+        <p>Going <strong>counter-clockwise</strong> → each key adds <strong>1 more FLAT ♭</strong></p>
+        <p>C major sits at the <strong>TOP</strong> — it's the king with 0 sharps and 0 flats! 👑</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: What is a Key Signature? -->
+  <div class="section-card card-ocean">
+    <div class="section-num num-ocean">5</div>
+    <h2>✍️ What is a KEY SIGNATURE?</h2>
+    <p>A <strong>key signature</strong> is a shortcut! Instead of writing ♯ or ♭ next to every single note in a song, musicians write them <strong>once at the beginning</strong>, and it tells you: <em>"These notes are always sharp/flat in this song!"</em></p>
+
+    <div class="fun-box yellow">
+      <span class="icon">🏷️</span>
+      <p><strong>Think of a key signature like a NAME TAG 🏷️!</strong> Before a concert, everyone wears a name tag so they don't have to introduce themselves every time. A key signature works the same way — it tells all the notes what "outfit" to wear for the whole piece!</p>
+    </div>
+
+    <h3>🎯 Click a key to see its key signature!</h3>
+    <div class="key-sig-grid" id="keySigGrid"></div>
+
+    <div class="staff-display" id="staffDisplay">
+      <p style="color:#A0AEC0; font-size:1rem; font-weight:700;">👆 Click a key above to see its key signature on the staff!</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Fun Tricks -->
+  <div class="section-card card-rose">
+    <div class="section-num num-rose">6</div>
+    <h2>🧠 Super Smart Tricks!</h2>
+
+    <div class="trick-box">
+      <div class="trick-title">✨ Trick #1: How many sharps? Count clockwise from C!</div>
+      <p>G has <strong>1 sharp</strong>, D has <strong>2 sharps</strong>, A has <strong>3 sharps</strong>... The farther clockwise from C, the more sharps! Easy!</p>
+    </div>
+
+    <div class="trick-box">
+      <div class="trick-title">✨ Trick #2: What is the sharp? Look at the last sharp!</div>
+      <p>To find what KEY you're in from sharps: look at the <strong>last sharp</strong> written, go <strong>one note UP</strong>, and that's your key! For example, if the last sharp is F♯, go up one note to G — you're in <strong>G major!</strong></p>
+    </div>
+
+    <div class="trick-box">
+      <div class="trick-title">✨ Trick #3: What key for flats? Look at the second-to-last flat!</div>
+      <p>For flats: the <strong>second-to-last flat</strong> IS your key! For example, if you see B♭ and E♭, the second-to-last is B♭, so you're in <strong>B♭ major!</strong></p>
+    </div>
+
+    <div class="trick-box">
+      <div class="trick-title">✨ Trick #4: Every major key has a cousin! (Relative Minor)</div>
+      <p>Every major key has a <strong>relative minor</strong> — they share the same notes and same key signature! Go <strong>3 notes DOWN</strong> from your major key to find it. C major's cousin is <strong>A minor</strong>! 👫</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Quiz -->
+  <div class="section-card card-purple">
+    <div class="section-num num-purple">7</div>
+    <h2>🎮 Let's Play! — Quiz Time</h2>
+    <p>You've learned so much today! Let's test your knowledge with a fun quiz. Ready? 🚀</p>
+
+    <div class="quiz-section" id="quizSection">
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="progressBar" style="width:0%"></div></div>
+      <div id="quizContent"></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Made with 🎵 by <span>Fingers On Keys</span> — Happy Playing! 🎹</p>
+</footer>
+
+<script>
+// ================================
+// FLOATING NOTES BACKGROUND
+// ================================
+const notesChars = ['♩','♪','♫','♬','𝄞','𝄢','♭','♯'];
+const bg = document.getElementById('bgNotes');
+for(let i=0; i<18; i++){
+  const n = document.createElement('div');
+  n.className = 'bg-note';
+  n.textContent = notesChars[Math.floor(Math.random()*notesChars.length)];
+  n.style.left = Math.random()*100+'vw';
+  n.style.animationDuration = (12+Math.random()*20)+'s';
+  n.style.animationDelay = (Math.random()*20)+'s';
+  n.style.fontSize = (16+Math.random()*20)+'px';
+  bg.appendChild(n);
+}
+
+// ================================
+// PIANO KEYBOARD
+// ================================
+const noteNames = ['C','D','E','F','G','A','B','C','D','E'];
+const blackPositions = [1,2,4,5,6]; // relative to white key index 0-6 pattern
+const whiteKeys7 = ['C','D','E','F','G','A','B'];
+const blackKeys5 = [
+  {note:'C♯/D♭', after:0},
+  {note:'D♯/E♭', after:1},
+  {note:'F♯/G♭', after:3},
+  {note:'G♯/A♭', after:4},
+  {note:'A♯/B♭', after:5}
+];
+
+const piano = document.getElementById('pianoKeyboard');
+const noteDisplay = document.getElementById('noteDisplay');
+
+// Build 2 octaves (C4-B5) = 14 white keys
+const whites = 14;
+const wkWidth = 44;
+const pianoWidth = whites * wkWidth;
+
+// Create white keys container
+const wkContainer = document.createElement('div');
+wkContainer.style.cssText = 'display:flex; position:relative;';
+
+// White keys
+for(let i=0; i<whites; i++){
+  const noteIdx = i % 7;
+  const wk = document.createElement('div');
+  wk.className = 'white-key';
+  const noteName = whiteKeys7[noteIdx];
+  const octave = Math.floor(i/7)+4;
+  // Highlight C keys
+  if(noteName === 'C') wk.classList.add('highlighted');
+  wk.innerHTML = `<span class="key-label">${noteName}</span>`;
+  wk.dataset.note = noteName + octave;
+  wk.dataset.name = noteName;
+  wk.addEventListener('click', () => showNote(noteName, wk, false));
+  wkContainer.appendChild(wk);
+}
+
+// Black keys positioned absolutely
+const bkLayer = document.createElement('div');
+bkLayer.style.cssText = 'position:absolute; top:0; left:0; width:100%; pointer-events:none;';
+
+// Black key pattern per octave: after white key indexes 0,1,3,4,5
+const blackPattern = [
+  {afterIdx:0, note:'C♯'},
+  {afterIdx:1, note:'D♯'},
+  {afterIdx:3, note:'F♯'},
+  {afterIdx:4, note:'G♯'},
+  {afterIdx:5, note:'A♯'},
+];
+
+for(let oct=0; oct<2; oct++){
+  blackPattern.forEach(b => {
+    const bk = document.createElement('div');
+    bk.className = 'black-key';
+    const leftOffset = (oct*7 + b.afterIdx + 1)*wkWidth - 14;
+    bk.style.left = leftOffset+'px';
+    bk.dataset.note = b.note + (oct+4);
+    bk.dataset.name = b.note;
+    bk.addEventListener('click', () => showNote(b.note, bk, true));
+    bk.style.pointerEvents = 'all';
+    bkLayer.appendChild(bk);
+  });
+}
+
+wkContainer.appendChild(bkLayer);
+piano.appendChild(wkContainer);
+
+function showNote(name, el, isBlack){
+  // Remove previous press
+  document.querySelectorAll('.white-key.pressed, .black-key.pressed').forEach(k => k.classList.remove('pressed'));
+  el.classList.add('pressed');
+  setTimeout(() => el.classList.remove('pressed'), 300);
+
+  const funFacts = {
+    'C': '🏠 C is the HOME note! The most popular key in music!',
+    'D': '🌟 D is bright and joyful! Many happy songs are in D!',
+    'E': '🎸 E is a rock star favourite! Many guitar songs start here!',
+    'F': '🌊 F feels calm and flowing — 1 flat in its key!',
+    'G': '🌄 G sounds warm and sunny! 1 sharp in G major!',
+    'A': '🎺 A sounds strong and clear! 3 sharps in A major!',
+    'B': '✨ B is bright and sparkly! 5 sharps in B major!',
+    'C♯': '💎 C sharp is a beautiful black key! It\'s the same as D flat!',
+    'D♯': '🌸 D sharp sounds mysterious! Same as E flat!',
+    'F♯': '🌙 F sharp has a dreamy sound! 6 sharps in its key!',
+    'G♯': '⭐ G sharp sparkles! Same as A flat!',
+    'A♯': '🎀 A sharp is fun! Same as B flat — very common!',
+  };
+  const baseName = name.split('/')[0];
+  noteDisplay.textContent = `🎵 You played ${name}! ${funFacts[baseName] || ''}`;
+  noteDisplay.style.color = isBlack ? '#764ba2' : '#667eea';
+}
+
+// ================================
+// SHARPS & FLATS ORDER
+// ================================
+const sharpsOrder = ['F','C','G','D','A','E','B'];
+const flatsOrder  = ['B','E','A','D','G','C','F'];
+const sharpMnemonic = ['Fat','Cats','Go','Down','Alleys','Eating','Bread'];
+const flatMnemonic  = ['Battle','Ends','And','Down','Goes','Charles\'','Father'];
+
+function buildPills(arr, mnemonic, containerId, type){
+  const container = document.getElementById(containerId);
+  arr.forEach((note,i) => {
+    const pill = document.createElement('div');
+    pill.className = `order-pill ${type}`;
+    pill.style.animationDelay = (i*0.08)+'s';
+    const sym = type === 'sharp' ? '♯' : '♭';
+    pill.innerHTML = `<span class="order-num">${i+1}</span><strong>${note}${sym}</strong> <span style="font-size:0.8rem; opacity:0.7">${mnemonic[i]}</span>`;
+    container.appendChild(pill);
+  });
+}
+buildPills(sharpsOrder, sharpMnemonic, 'sharpsOrder', 'sharp');
+buildPills(flatsOrder, flatMnemonic, 'flatsOrder', 'flat');
+
+// ================================
+// CIRCLE OF FIFTHS
+// ================================
+const cof = [
+  {major:'C',  minor:'Am', sharps:0, flats:0,  angle:90},
+  {major:'G',  minor:'Em', sharps:1, flats:0,  angle:60},
+  {major:'D',  minor:'Bm', sharps:2, flats:0,  angle:30},
+  {major:'A',  minor:'F♯m',sharps:3, flats:0,  angle:0},
+  {major:'E',  minor:'C♯m',sharps:4, flats:0,  angle:330},
+  {major:'B',  minor:'G♯m',sharps:5, flats:0,  angle:300},
+  {major:'F♯/G♭',minor:'D♯m/E♭m',sharps:6,flats:6,angle:270},
+  {major:'D♭', minor:'B♭m',sharps:0, flats:5,  angle:240},
+  {major:'A♭', minor:'Fm', sharps:0, flats:4,  angle:210},
+  {major:'E♭', minor:'Cm', sharps:0, flats:3,  angle:180},
+  {major:'B♭', minor:'Gm', sharps:0, flats:2,  angle:150},
+  {major:'F',  minor:'Dm', sharps:0, flats:1,  angle:120},
+];
+
+const cofSvg = document.getElementById('cof-svg');
+const cx=200, cy=200;
+const r1=170, r2=130, r3=90; // outer, mid, inner
+const sliceAngle = 360/12;
+
+// Colors: right side (sharps) warm, left side (flats) cool, C=purple
+const sliceColors = [
+  '#667eea','#7B8EE8','#4D96FF','#63B3ED','#4299E1','#3182CE',
+  '#A78BFA','#FC8181','#F6AD55','#F6E05E','#68D391','#48BB78'
+];
+
+function polarToXY(cx, cy, r, angleDeg){
+  const rad = (angleDeg - 90) * Math.PI / 180;
+  return { x: cx + r*Math.cos(rad), y: cy + r*Math.sin(rad) };
+}
+
+function makeArcPath(cx,cy,r1,r2,startDeg,endDeg){
+  const s1=polarToXY(cx,cy,r1,startDeg), e1=polarToXY(cx,cy,r1,endDeg);
+  const s2=polarToXY(cx,cy,r2,endDeg),   e2=polarToXY(cx,cy,r2,startDeg);
+  const large = (endDeg-startDeg)>180 ? 1:0;
+  return `M${s1.x},${s1.y} A${r1},${r1},0,${large},1,${e1.x},${e1.y} L${s2.x},${s2.y} A${r2},${r2},0,${large},0,${e2.x},${e2.y} Z`;
+}
+
+cof.forEach((key,i) => {
+  const start = key.angle - sliceAngle/2;
+  const end   = key.angle + sliceAngle/2;
+  const mid   = key.angle;
+  const color = sliceColors[i];
+
+  // Outer slice (major key)
+  const outerPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+  outerPath.setAttribute('d', makeArcPath(cx,cy,r1,r2,start,end));
+  outerPath.setAttribute('fill', color);
+  outerPath.setAttribute('opacity','0.85');
+  outerPath.setAttribute('stroke','white');
+  outerPath.setAttribute('stroke-width','2');
+  outerPath.setAttribute('cursor','pointer');
+  outerPath.style.transition = 'opacity 0.2s, filter 0.2s';
+
+  // Inner slice (minor key)
+  const innerPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+  innerPath.setAttribute('d', makeArcPath(cx,cy,r3,40,start,end));
+  innerPath.setAttribute('fill', color);
+  innerPath.setAttribute('opacity','0.45');
+  innerPath.setAttribute('stroke','white');
+  innerPath.setAttribute('stroke-width','2');
+  innerPath.setAttribute('cursor','pointer');
+
+  // Major label
+  const mp = polarToXY(cx,cy,(r1+r2)/2,mid);
+  const majorLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+  majorLabel.setAttribute('x',mp.x); majorLabel.setAttribute('y',mp.y);
+  majorLabel.setAttribute('text-anchor','middle'); majorLabel.setAttribute('dominant-baseline','middle');
+  majorLabel.setAttribute('font-size', key.major.includes('/') ? '10':'13');
+  majorLabel.setAttribute('font-weight','800');
+  majorLabel.setAttribute('fill','white');
+  majorLabel.setAttribute('font-family','Baloo 2, cursive');
+  majorLabel.setAttribute('pointer-events','none');
+  majorLabel.textContent = key.major;
+
+  // Minor label
+  const ip = polarToXY(cx,cy,(r3+40)/2,mid);
+  const minorLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+  minorLabel.setAttribute('x',ip.x); minorLabel.setAttribute('y',ip.y);
+  minorLabel.setAttribute('text-anchor','middle'); minorLabel.setAttribute('dominant-baseline','middle');
+  minorLabel.setAttribute('font-size','8');
+  minorLabel.setAttribute('font-weight','700');
+  minorLabel.setAttribute('fill',color);
+  minorLabel.setAttribute('font-family','Nunito, sans-serif');
+  minorLabel.setAttribute('pointer-events','none');
+  minorLabel.textContent = key.minor;
+
+  // Accidental label (sharps/flats count) on mid ring
+  const ringP = polarToXY(cx,cy,(r2+r3)/2,mid);
+  const accLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+  accLabel.setAttribute('x',ringP.x); accLabel.setAttribute('y',ringP.y);
+  accLabel.setAttribute('text-anchor','middle'); accLabel.setAttribute('dominant-baseline','middle');
+  accLabel.setAttribute('font-size','10'); accLabel.setAttribute('font-weight','800');
+  accLabel.setAttribute('fill','white'); accLabel.setAttribute('font-family','Nunito,sans-serif');
+  accLabel.setAttribute('pointer-events','none');
+  if(key.sharps>0) accLabel.textContent = key.sharps+'♯';
+  else if(key.flats>0) accLabel.textContent = key.flats+'♭';
+  else accLabel.textContent = '0';
+
+  // Hover/click behaviour
+  const handleClick = () => {
+    document.querySelectorAll('.cof-slice-outer').forEach(p => {
+      p.style.filter = ''; p.setAttribute('opacity','0.85');
+    });
+    outerPath.style.filter = 'url(#glow)';
+    outerPath.setAttribute('opacity','1');
+
+    let accText = key.sharps>0 ? `${key.sharps} Sharp${key.sharps>1?'s':''} (♯)` :
+                  key.flats>0  ? `${key.flats} Flat${key.flats>1?'s':''}  (♭)` :
+                  'No sharps or flats!';
+    let emoji = key.sharps>0 ? '🟡' : key.flats>0 ? '🔵' : '👑';
+    document.getElementById('cofInfo').innerHTML = `
+      <div>
+        <div class="cof-info-text">${emoji} <strong>${key.major} Major</strong> — Relative: ${key.minor}</div>
+        <div class="cof-info-sub">${accText} &nbsp;|&nbsp; ${
+          key.sharps>0 ? 'Clockwise from C 🔄' :
+          key.flats>0  ? 'Counter-clockwise from C 🔄' :
+          'The starting point — no accidentals! 🏠'
+        }</div>
+      </div>
+    `;
+  };
+
+  outerPath.classList.add('cof-slice-outer');
+  outerPath.addEventListener('click', handleClick);
+  innerPath.addEventListener('click', handleClick);
+  majorLabel.addEventListener('click', handleClick);
+
+  outerPath.addEventListener('mouseenter', () => { outerPath.setAttribute('opacity','1'); });
+  outerPath.addEventListener('mouseleave', () => { if(!outerPath.style.filter) outerPath.setAttribute('opacity','0.85'); });
+
+  cofSvg.appendChild(outerPath);
+  cofSvg.appendChild(innerPath);
+  cofSvg.appendChild(accLabel);
+  cofSvg.appendChild(majorLabel);
+  cofSvg.appendChild(minorLabel);
+});
+
+// Center circle
+const centerCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+centerCircle.setAttribute('cx',cx); centerCircle.setAttribute('cy',cy);
+centerCircle.setAttribute('r','38'); centerCircle.setAttribute('fill','#F7FAFC');
+centerCircle.setAttribute('stroke','#E2E8F0'); centerCircle.setAttribute('stroke-width','2');
+cofSvg.appendChild(centerCircle);
+const centerText = document.createElementNS('http://www.w3.org/2000/svg','text');
+centerText.setAttribute('x',cx); centerText.setAttribute('y',cy-6);
+centerText.setAttribute('text-anchor','middle'); centerText.setAttribute('font-size','11');
+centerText.setAttribute('font-weight','800'); centerText.setAttribute('fill','#667eea');
+centerText.setAttribute('font-family','Baloo 2, cursive');
+centerText.textContent = 'Circle';
+const centerText2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+centerText2.setAttribute('x',cx); centerText2.setAttribute('y',cy+8);
+centerText2.setAttribute('text-anchor','middle'); centerText2.setAttribute('font-size','11');
+centerText2.setAttribute('font-weight','800'); centerText2.setAttribute('fill','#667eea');
+centerText2.setAttribute('font-family','Baloo 2, cursive');
+centerText2.textContent = 'of Fifths';
+const centerText3 = document.createElementNS('http://www.w3.org/2000/svg','text');
+centerText3.setAttribute('x',cx); centerText3.setAttribute('y',cy+22);
+centerText3.setAttribute('text-anchor','middle'); centerText3.setAttribute('font-size','16');
+centerText3.textContent = '🎵';
+cofSvg.appendChild(centerText); cofSvg.appendChild(centerText2); cofSvg.appendChild(centerText3);
+
+// ================================
+// KEY SIGNATURE GRID
+// ================================
+const keySigs = [
+  {name:'C Major', sharps:0, flats:0, notes:'C D E F G A B',  emoji:'👑'},
+  {name:'G Major', sharps:1, flats:0, notes:'F♯',              emoji:'🌄', sharpNotes:['F♯']},
+  {name:'D Major', sharps:2, flats:0, notes:'F♯ C♯',           emoji:'🌟', sharpNotes:['F♯','C♯']},
+  {name:'A Major', sharps:3, flats:0, notes:'F♯ C♯ G♯',        emoji:'🌺', sharpNotes:['F♯','C♯','G♯']},
+  {name:'E Major', sharps:4, flats:0, notes:'F♯ C♯ G♯ D♯',     emoji:'✨', sharpNotes:['F♯','C♯','G♯','D♯']},
+  {name:'F Major', sharps:0, flats:1, notes:'B♭',              emoji:'🌊', flatNotes:['B♭']},
+  {name:'B♭ Major',sharps:0, flats:2, notes:'B♭ E♭',           emoji:'🌙', flatNotes:['B♭','E♭']},
+  {name:'E♭ Major',sharps:0, flats:3, notes:'B♭ E♭ A♭',        emoji:'🌸', flatNotes:['B♭','E♭','A♭']},
+  {name:'A♭ Major',sharps:0, flats:4, notes:'B♭ E♭ A♭ D♭',     emoji:'💜', flatNotes:['B♭','E♭','A♭','D♭']},
+];
+
+const grid = document.getElementById('keySigGrid');
+const staffDisplay = document.getElementById('staffDisplay');
+
+keySigs.forEach((key, idx) => {
+  const card = document.createElement('div');
+  card.className = 'key-sig-card';
+  const hasAcc = key.sharps > 0 || key.flats > 0;
+  const accStr = key.sharps > 0 ? `${key.sharps} Sharp${key.sharps>1?'s':''}` :
+                 key.flats  > 0 ? `${key.flats} Flat${key.flats>1?'s':''}` : 'No accidentals';
+  const accClass = key.sharps > 0 ? 'sharp' : key.flats > 0 ? 'flat' : '';
+  const accSym = key.sharps > 0 ? '♯'.repeat(Math.min(key.sharps,4)) :
+                 key.flats  > 0 ? '♭'.repeat(Math.min(key.flats,4))  : '∅';
+  card.innerHTML = `
+    <div class="key-name">${key.emoji} ${key.name.replace(' Major','')}</div>
+    <div class="staff-mini">${accSym || '–'}</div>
+    <div class="key-sharps ${accClass}">${accStr}</div>
+  `;
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.key-sig-card.selected').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    showStaff(key);
+  });
+  grid.appendChild(card);
+});
+
+function showStaff(key){
+  const sharpsPositions = [63,45,69,51,39,57,45]; // y positions for # on treble staff (F C G D A E B)
+  const flatsPositions  = [45,63,39,57,33,51,27]; // y positions for b on treble staff (B E A D G C F)
+
+  let accidentalsSVG = '';
+  const startX = 65;
+
+  if(key.sharps > 0){
+    for(let i=0;i<key.sharps;i++){
+      const x = startX + i*18;
+      const y = sharpsPositions[i];
+      accidentalsSVG += `<text x="${x}" y="${y}" font-size="18" font-family="serif" fill="#E53E3E" font-weight="700">♯</text>`;
+    }
+  } else if(key.flats > 0){
+    for(let i=0;i<key.flats;i++){
+      const x = startX + i*18;
+      const y = flatsPositions[i];
+      accidentalsSVG += `<text x="${x}" y="${y}" font-size="20" font-family="serif" fill="#3182CE" font-weight="700">♭</text>`;
+    }
+  }
+
+  const width = Math.max(200, 160 + key.sharps*18 + key.flats*18);
+  staffDisplay.innerHTML = `
+    <p style="font-family:'Baloo 2',cursive; font-size:1.15rem; font-weight:800; color:#667eea; margin-bottom:14px;">
+      ${key.emoji} ${key.name} — ${key.sharps>0?key.sharps+' Sharp'+(key.sharps>1?'s':''):key.flats>0?key.flats+' Flat'+(key.flats>1?'s':''):'No accidentals!'} 
+    </p>
+    <div class="staff-svg-wrap">
+      <svg width="${width}" height="100" viewBox="0 0 ${width} 100" xmlns="http://www.w3.org/2000/svg" style="max-width:100%">
+        <line x1="18" y1="33" x2="${width-10}" y2="33" stroke="#CBD5E0" stroke-width="1.5"/>
+        <line x1="18" y1="45" x2="${width-10}" y2="45" stroke="#CBD5E0" stroke-width="1.5"/>
+        <line x1="18" y1="57" x2="${width-10}" y2="57" stroke="#CBD5E0" stroke-width="1.5"/>
+        <line x1="18" y1="69" x2="${width-10}" y2="69" stroke="#CBD5E0" stroke-width="1.5"/>
+        <line x1="18" y1="81" x2="${width-10}" y2="81" stroke="#CBD5E0" stroke-width="1.5"/>
+        <text x="20" y="78" font-size="56" font-family="serif" fill="#667eea" opacity="0.5">𝄞</text>
+        ${accidentalsSVG}
+        ${key.sharps===0 && key.flats===0 ? `<text x="70" y="62" font-size="13" font-family="Nunito,sans-serif" font-weight="700" fill="#A0AEC0">No sharps or flats!</text>` : ''}
+        <line x1="${width-12}" y1="33" x2="${width-12}" y2="81" stroke="#4A5568" stroke-width="2"/>
+      </svg>
+    </div>
+    <div style="margin-top:12px; font-size:0.9rem; font-weight:700; color:#718096;">
+      ${key.sharps>0 ? `<span style="color:#C53030">Sharps: ${(key.sharpNotes||[]).join(' → ')}</span>` :
+        key.flats>0  ? `<span style="color:#2B6CB0">Flats: ${(key.flatNotes||[]).join(' → ')}</span>` :
+        '<span style="color:#276749">C Major — The cleanest key! All white keys! 🎹</span>'}
+    </div>
+  `;
+}
+
+// ================================
+// QUIZ
+// ================================
+const quizQuestions = [
+  {
+    q: "🏠 What do we call the 'home note' in music?",
+    options: ['A scale','A key','A chord','A rest'],
+    answer: 1,
+    explain: '✅ A KEY is the home base of music — everything revolves around it!'
+  },
+  {
+    q: "🎹 How many sharps does C major have?",
+    options: ['0 — no sharps!','1 sharp','3 sharps','7 sharps'],
+    answer: 0,
+    explain: '✅ C major has ZERO sharps and ZERO flats — it uses only white keys!'
+  },
+  {
+    q: "🎡 What shape is the Circle of Fifths?",
+    options: ['A triangle','A square','A circle','A star'],
+    answer: 2,
+    explain: '✅ It\'s a circle! All 12 keys arranged in a magical ring!'
+  },
+  {
+    q: "♯ Going CLOCKWISE on the Circle of Fifths, what do you add?",
+    options: ['More flats','More sharps','More notes','More beats'],
+    answer: 1,
+    explain: '✅ Clockwise = more sharps! Counter-clockwise = more flats!'
+  },
+  {
+    q: "🌟 G major has how many sharps?",
+    options: ['0 sharps','1 sharp (F♯)','2 sharps','4 sharps'],
+    answer: 1,
+    explain: '✅ G major has 1 sharp — F♯! You can find G right next to C on the circle!'
+  },
+  {
+    q: "♭ What is a FLAT note?",
+    options: ['A note that goes UP','A note that stays the same','A note that goes DOWN a little','A very loud note'],
+    answer: 2,
+    explain: '✅ A flat (♭) means the note goes DOWN a half step — like taking a topping off the pizza! 🍕'
+  },
+  {
+    q: "🏷️ What is a Key Signature?",
+    options: ['The name of a song','Sharps or flats written at the start telling you which notes to adjust','The speed of the music','The number of beats per bar'],
+    answer: 1,
+    explain: '✅ A key signature is like a name tag — it tells you which notes are sharp or flat for the whole piece!'
+  },
+  {
+    q: "🌊 F major has how many flats?",
+    options: ['0 flats','1 flat (B♭)','2 flats','3 flats'],
+    answer: 1,
+    explain: '✅ F major has 1 flat — B♭! F is just to the left of C on the circle!'
+  },
+];
+
+let qIndex = 0, score = 0;
+const quizContent = document.getElementById('quizContent');
+const progressBar = document.getElementById('progressBar');
+
+function renderQuestion(){
+  if(qIndex >= quizQuestions.length){
+    showScore(); return;
+  }
+  const q = quizQuestions[qIndex];
+  progressBar.style.width = (qIndex/quizQuestions.length*100)+'%';
+  const emojis = ['🅐','🅑','🅒','🅓'];
+  quizContent.innerHTML = `
+    <div class="quiz-q">Question ${qIndex+1} of ${quizQuestions.length}: ${q.q}</div>
+    <div class="quiz-options" id="quizOptions">
+      ${q.options.map((opt,i)=>`
+        <button class="quiz-btn" onclick="answerQ(${i})" id="qbtn${i}">
+          ${emojis[i]} ${opt}
+        </button>
+      `).join('')}
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQ()">Next Question ➡️</button>
+  `;
+}
+
+function answerQ(chosen){
+  const q = quizQuestions[qIndex];
+  const buttons = document.querySelectorAll('.quiz-btn');
+  const feedback = document.getElementById('quizFeedback');
+  const nextBtn = document.getElementById('quizNext');
+  buttons.forEach(b => b.disabled = true);
+  buttons[q.answer].classList.add('correct');
+  if(chosen !== q.answer){
+    buttons[chosen].classList.add('wrong');
+    feedback.textContent = '❌ Not quite! ' + q.explain;
+    feedback.className = 'quiz-feedback wrong show';
+  } else {
+    score++;
+    feedback.textContent = q.explain;
+    feedback.className = 'quiz-feedback correct show';
+  }
+  nextBtn.classList.add('show');
+}
+
+function nextQ(){
+  qIndex++;
+  renderQuestion();
+}
+
+function showScore(){
+  progressBar.style.width = '100%';
+  const pct = Math.round(score/quizQuestions.length*100);
+  const stars = pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=50?'⭐':'🎵';
+  const msg = pct>=90 ? 'Amazing! You\'re a music genius! 🎓' :
+              pct>=70 ? 'Great job! Keep practising! 💪' :
+              pct>=50 ? 'Good try! Read the blog again! 📖' :
+              'Keep going — practice makes perfect! 🎹';
+  quizContent.innerHTML = `
+    <div class="quiz-score show">
+      <span class="score-stars">${stars}</span>
+      <div style="font-size:1.6rem; color:#667eea; margin-bottom:8px;">You scored ${score} out of ${quizQuestions.length}!</div>
+      <div style="font-size:1.1rem; color:#4A5568; font-family:'Nunito',sans-serif; font-weight:600; margin-bottom:20px;">${msg}</div>
+      <button class="quiz-next show" onclick="restartQuiz()" style="font-size:1rem;">🔄 Try Again!</button>
+    </div>
+  `;
+}
+
+function restartQuiz(){ qIndex=0; score=0; renderQuestion(); }
+
+renderQuestion();
+</script>
+</body>
+</html>
