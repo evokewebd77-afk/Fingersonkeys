@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const PromotionBanner = () => {
-    const bannerText = "Admission Open! CLASSES WILL START FROM 1 MAY 2026";
+    const bannerText = "Admission Open! CLASSES WILL START FROM 20 MAY 2026";
     const separator = " • ";
 
     return (
