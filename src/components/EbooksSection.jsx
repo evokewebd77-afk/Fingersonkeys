@@ -64,8 +64,9 @@ const EbooksSection = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-6xl md:text-5xl font-black mb-4 text-white uppercase tracking-tighter font-[var(--font-brand)]">
-                        Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">E-Books</span>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 uppercase tracking-[0.05em] sm:tracking-tight font-[var(--font-brand)] leading-[1.15] px-2">
+                        <span className="block">Professional</span>
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500" style={{ WebkitBackgroundClip: 'text' }}>E-Books</span>
                     </h2>
                     <div className="w-24 h-1.5 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto mb-6 rounded-full"></div>
                     <p className="text-zinc-400 max-w-2xl mx-auto text-lg leading-relaxed">

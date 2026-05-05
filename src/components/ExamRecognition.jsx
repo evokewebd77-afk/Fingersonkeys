@@ -55,8 +55,9 @@ const ExamRecognition = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-500 text-xs font-bold uppercase tracking-[0.2em] mb-6">
             <Globe size={14} /> Global Standards
           </div>
-          <h2 className="text-6xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter font-[var(--font-brand)]">
-            International <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">Recognition</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 uppercase tracking-[0.05em] sm:tracking-tight font-[var(--font-brand)] leading-[1.15] px-2">
+            <span className="block">International</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500" style={{ WebkitBackgroundClip: 'text' }}>Recognition</span>
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-pink-500 to-purple-500 mt-2 mb-6 rounded-full mx-auto"></div>
           <p className="text-zinc-400 text-lg max-w-3xl mx-auto">
