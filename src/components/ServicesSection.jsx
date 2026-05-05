@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Award, Music2, BookOpenCheck } from "lucide-react";
+import { GraduationCap, Award, Music2, BookOpenCheck, X } from "lucide-react";
 
 const services = [
   {
@@ -141,23 +141,23 @@ const ServicesSection = () => {
         {/* DETAIL POPUP */}
         {activeService && !showForm && (
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] p-4"
             onClick={() => setActiveService(null)}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-zinc-900 rounded-3xl p-8 max-w-lg w-full relative border border-pink-500/40 shadow-2xl"
+              className="bg-zinc-950 rounded-[2.5rem] p-8 max-w-lg w-full relative border border-pink-500/30 shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
             >
               <button
                 onClick={() => setActiveService(null)}
-                className="absolute top-4 right-4 text-white text-xl hover:text-pink-500"
+                className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors bg-white/5 p-2 rounded-full z-20"
               >
-                ✕
+                <X size={20} />
               </button>
 
-              <div className="w-16 h-16 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-4">
+              <div className="w-16 h-16 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-4 mt-2">
                 <activeService.icon size={30} />
               </div>
 
@@ -182,33 +182,33 @@ const ServicesSection = () => {
         {/* STUDENT FORM POPUP */}
         {showForm && (
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] p-4"
             onClick={() => {
               setShowForm(false);
               setActiveService(null);
             }}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-zinc-900 rounded-3xl p-8 max-w-xl w-full relative border border-pink-500/40 shadow-2xl"
+              className="bg-zinc-950 rounded-[2.5rem] p-6 sm:p-8 max-w-xl w-full relative border border-pink-500/30 shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hide"
             >
               <button
                 onClick={() => {
                   setShowForm(false);
                   setActiveService(null);
                 }}
-                className="absolute top-4 right-4 text-white text-xl hover:text-pink-500"
+                className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors bg-white/5 p-2 rounded-full z-20"
               >
-                ✕
+                <X size={20} />
               </button>
 
-              <h3 className="text-2xl font-black text-white mb-6">
+              <h3 className="text-2xl font-black text-white mb-6 mt-2">
                 Student Portal
               </h3>
 
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10" onSubmit={handleSubmit}>
                 <input
                   type="text"
                   placeholder="Student Name"
@@ -310,19 +310,34 @@ const ServicesSection = () => {
 
       </div>
 
-      {/* Tailwind Input Style */}
+      {/* Tailwind Input Style & Hide Scrollbar */}
       <style>
         {`
           .input {
-            background: #18181b;
-            border: 1px solid #3f3f46;
-            padding: 12px;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            border-radius: 16px;
             color: white;
             outline: none;
+            transition: all 0.2s;
+            font-weight: 500;
+          }
+          .input::placeholder {
+            color: #52525b;
           }
           .input:focus {
-            border-color: #ec4899;
+            border-color: rgba(236, 72, 153, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+          }
+          /* Hide scrollbar for Chrome, Safari and Opera */
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          /* Hide scrollbar for IE, Edge and Firefox */
+          .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
           }
         `}
       </style>
