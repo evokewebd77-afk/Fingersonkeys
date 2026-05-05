@@ -67,14 +67,15 @@ const ServicesSection = () => {
       alert("Enrollment submitted successfully!");
       setShowForm(false);
       setFormData({ name: "", age: "", email: "", qualification: "", countryCode: "+91", phone: "", course: "", message: "" });
-    } catch (error) {
+    } catch {
       alert("Failed to submit. Please try again later.");
     } finally {
       setSubmitting(false);
     }
   };
 
-  return (
+  return (<>
+
     <section id="services" className="py-16 px-4 relative z-10">
       <div className="max-w-7xl mx-auto">
 
@@ -173,41 +174,40 @@ const ServicesSection = () => {
           }
         `}
       </style>
-    </section>
 
-    {/* DETAIL POPUP — rendered via portal at body level */}
-    {createPortal(
-      <AnimatePresence>
-        {activeService && !showForm && (
-          <div
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
-            onClick={() => setActiveService(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 shadow-2xl max-h-[95vh] overflow-y-auto svc-scrollbar-hide"
+      {/* DETAIL POPUP — rendered via portal at body level */}
+      {createPortal(
+        <AnimatePresence>
+          {activeService && !showForm && (
+            <div
+              className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-3 sm:p-4"
+              onClick={() => setActiveService(null)}
             >
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
-
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-full sm:max-w-lg bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-10 shadow-2xl max-h-[90vh] sm:max-h-[95vh] overflow-y-auto svc-scrollbar-hide"
+              >
                 <button
                   onClick={() => setActiveService(null)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 text-zinc-400 hover:text-white transition-colors bg-white/10 hover:bg-white/20 w-10 h-10 rounded-full flex items-center justify-center z-20"
+                  className="absolute top-3 right-3 sm:top-5 sm:right-5 text-white hover:text-pink-500 transition-colors bg-zinc-800/80 hover:bg-zinc-700 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center z-50 shadow-lg"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
 
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-5 mt-6">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
+
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-5 mt-4 sm:mt-6">
                   <activeService.icon size={30} />
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-3 uppercase tracking-tighter font-[var(--font-brand)]">
+                <h3 className="text-xl sm:text-3xl font-black text-white mb-3 uppercase tracking-tighter font-[var(--font-brand)] pr-12">
                   {activeService.title}
                 </h3>
 
-                <p className="text-zinc-400 mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed">
+                <p className="text-zinc-400 mb-6 sm:mb-8 text-sm sm:text-lg leading-relaxed">
                   {activeService.description}
                 </p>
 
@@ -218,43 +218,43 @@ const ServicesSection = () => {
                   Enroll Now
                 </button>
               </motion.div>
-          </div>
-        )}
-      </AnimatePresence>,
-      document.body
-    )}
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
-    {/* STUDENT FORM POPUP — rendered via portal at body level */}
-    {createPortal(
-      <AnimatePresence>
-        {showForm && (
-          <div
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
-            onClick={() => {
-              setShowForm(false);
-              setActiveService(null);
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-xl bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-10 shadow-2xl max-h-[95vh] overflow-y-auto svc-scrollbar-hide"
+      {/* STUDENT FORM POPUP — rendered via portal at body level */}
+      {createPortal(
+        <AnimatePresence>
+          {showForm && (
+            <div
+              className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-3 sm:p-4"
+              onClick={() => {
+                setShowForm(false);
+                setActiveService(null);
+              }}
             >
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
-
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-full sm:max-w-xl bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl max-h-[90vh] sm:max-h-[95vh] overflow-y-auto svc-scrollbar-hide overflow-x-hidden"
+              >
                 <button
                   onClick={() => {
                     setShowForm(false);
                     setActiveService(null);
                   }}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 text-zinc-400 hover:text-white transition-colors bg-white/10 hover:bg-white/20 w-10 h-10 rounded-full flex items-center justify-center z-20"
+                  className="absolute top-3 right-3 sm:top-5 sm:right-5 text-white hover:text-pink-500 transition-colors bg-zinc-800/80 hover:bg-zinc-700 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center z-50 shadow-lg"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
 
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-6 mt-6 uppercase italic tracking-tight font-[var(--font-brand)]">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
+
+                <h3 className="text-xl sm:text-3xl font-black text-white mb-4 sm:mb-6 mt-3 sm:mt-6 uppercase italic tracking-tight font-[var(--font-brand)] pr-12">
                   Student <span className="text-pink-500">Portal</span>
                 </h3>
 
@@ -289,12 +289,12 @@ const ServicesSection = () => {
                       value={formData.countryCode}
                       onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
                     >
-                      <option value="+91" className="bg-zinc-900">🇮🇳 +91</option>
-                      <option value="+1" className="bg-zinc-900">🇺🇸 +1</option>
-                      <option value="+44" className="bg-zinc-900">🇬🇧 +44</option>
-                      <option value="+61" className="bg-zinc-900">🇦🇺 +61</option>
-                      <option value="+971" className="bg-zinc-900">🇦🇪 +971</option>
-                      <option value="+65" className="bg-zinc-900">🇸🇬 +65</option>
+                      <option value="+91" className="bg-zinc-900">+91</option>
+                      <option value="+1" className="bg-zinc-900">+1</option>
+                      <option value="+44" className="bg-zinc-900">+44</option>
+                      <option value="+61" className="bg-zinc-900">+61</option>
+                      <option value="+971" className="bg-zinc-900">+971</option>
+                      <option value="+65" className="bg-zinc-900">+65</option>
                     </select>
                     <input
                       type="tel"
@@ -343,14 +343,13 @@ const ServicesSection = () => {
                   </button>
                 </form>
               </motion.div>
-          </div>
-        )}
-      </AnimatePresence>,
-      document.body
-    )}
-
-    </>
-  );
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </section>
+  </>);
 };
 
 export default ServicesSection;
