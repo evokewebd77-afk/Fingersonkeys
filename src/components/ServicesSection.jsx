@@ -180,17 +180,16 @@ const ServicesSection = () => {
       <AnimatePresence>
         {activeService && !showForm && (
           <div
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] overflow-y-auto"
+            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
             onClick={() => setActiveService(null)}
           >
-            <div className="min-h-full flex items-center justify-center p-3 sm:p-6">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-lg bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 shadow-2xl my-4"
-              >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 shadow-2xl max-h-[95vh] overflow-y-auto svc-scrollbar-hide"
+            >
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
 
                 <button
@@ -219,7 +218,6 @@ const ServicesSection = () => {
                   Enroll Now
                 </button>
               </motion.div>
-            </div>
           </div>
         )}
       </AnimatePresence>,
@@ -231,20 +229,19 @@ const ServicesSection = () => {
       <AnimatePresence>
         {showForm && (
           <div
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] overflow-y-auto"
+            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
             onClick={() => {
               setShowForm(false);
               setActiveService(null);
             }}
           >
-            <div className="min-h-full flex items-center justify-center p-3 sm:p-6">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-xl bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-10 shadow-2xl my-4"
-              >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-xl bg-zinc-950 border border-pink-500/20 rounded-3xl sm:rounded-[2.5rem] p-5 sm:p-10 shadow-2xl max-h-[95vh] overflow-y-auto svc-scrollbar-hide"
+            >
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-t-3xl sm:rounded-t-[2.5rem]"></div>
 
                 <button
@@ -346,7 +343,6 @@ const ServicesSection = () => {
                   </button>
                 </form>
               </motion.div>
-            </div>
           </div>
         )}
       </AnimatePresence>,
