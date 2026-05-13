@@ -235,8 +235,8 @@ const PrivacyPolicy = () => {
                             </p>
                             <div className="space-y-2 text-zinc-300">
                                 <p><strong className="text-pink-400">Email:</strong> hello@fingersonkeys.com</p>
-                                <p><strong className="text-pink-400">Phone:</strong> +91 95558 27199</p>
-                                <p><strong className="text-pink-400">WhatsApp:</strong> +91 95558 27199</p>
+                                <p><strong className="text-pink-400">Phone:</strong> +91 95609 32344</p>
+                                <p><strong className="text-pink-400">WhatsApp:</strong> +91 95609 32344</p>
                             </div>
                         </section>
 

@@ -254,8 +254,8 @@ const ComplaintsPage = () => {
                                         </div>
                                         <div>
                                             <p className="text-xs text-zinc-500 font-semibold uppercase tracking-wider mb-0.5">Phone</p>
-                                            <a href="tel:+919555827199" className="text-zinc-300 hover:text-pink-400 transition-colors text-sm font-semibold">
-                                                +91 95558 27199
+                                            <a href="tel:+919560932344" className="text-zinc-300 hover:text-pink-400 transition-colors text-sm font-semibold">
+                                                +91 95609 32344
                                             </a>
                                         </div>
                                     </li>
@@ -265,8 +265,8 @@ const ComplaintsPage = () => {
                                         </div>
                                         <div>
                                             <p className="text-xs text-zinc-500 font-semibold uppercase tracking-wider mb-0.5">WhatsApp</p>
-                                            <a href="https://wa.me/919555827199" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-pink-400 transition-colors text-sm font-semibold">
-                                                +91 95558 27199
+                                            <a href="https://wa.me/919560932344" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-pink-400 transition-colors text-sm font-semibold">
+                                                +91 95609 32344
                                             </a>
                                         </div>
                                     </li>
