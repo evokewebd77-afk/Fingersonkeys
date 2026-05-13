@@ -40,7 +40,7 @@ const FloatingActions = () => {
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 whileHover={{ scale: 1.15, rotate: 5 }}
-                href="https://wa.me/919555827199"
+                href="https://wa.me/91 95609 32344"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-16 h-16 bg-[#25D366] text-white rounded-2xl flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.4)] transition-all group relative border-2 border-white/20"
