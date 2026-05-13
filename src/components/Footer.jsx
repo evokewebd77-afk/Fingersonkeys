@@ -34,7 +34,7 @@ const Footer = () => {
                                 { Icon: Youtube, href: 'https://www.youtube.com/@Fingers-OnKeys', color: 'hover:bg-red-600' },
                                 { Icon: XIcon, href: 'https://x.com/fingers_onkeys?s=21', color: 'hover:bg-zinc-800' },
                                 { Icon: Facebook, href: 'https://www.facebook.com/share/187QtV47s5/?mibextid=wwXIfr', color: 'hover:bg-[#1877F2]' },
-                                { Icon: MessageCircle, href: 'https://wa.me/919555827199', color: 'hover:bg-[#25D366]' },
+                                { Icon: MessageCircle, href: 'https://wa.me/+91 95609 32344', color: 'hover:bg-[#25D366]' },
                             ].map((social, i) => (
                                 <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-transparent transition-all duration-300 ${social.color}`}>
                                     <social.Icon size={18} />
@@ -60,13 +60,13 @@ const Footer = () => {
                                 <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-500 border border-pink-500/20 group-hover:bg-pink-500 group-hover:text-white transition-all">
                                     <Phone size={18} />
                                 </div>
-                                <a href="tel:+919555827199" className="hover:text-white transition-colors font-bold tracking-wider">+91 95558 27199</a>
+                                <a href="tel:++91 95609 32344" className="hover:text-white transition-colors font-bold tracking-wider">+91 95609 32344</a>
                             </li>
                             <li className="flex items-center gap-3 group">
                                 <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-500 border border-pink-500/20 group-hover:bg-[#25D366] group-hover:text-white transition-all">
                                     <MessageCircle size={18} />
                                 </div>
-                                <a href="https://wa.me/919555827199" className="hover:text-white transition-colors font-bold tracking-wider">+91 95558 27199</a>
+                                <a href="https://wa.me/+91 95609 32344" className="hover:text-white transition-colors font-bold tracking-wider">+91 95609 32344</a>
                             </li>
                             <li className="flex items-center gap-3 group">
                                 <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-500 border border-pink-500/20 group-hover:bg-white group-hover:text-black transition-all">
